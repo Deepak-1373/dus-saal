@@ -18,6 +18,7 @@ export default {
         mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
+        'display-2xl': ['56px', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '800' }],
         'display-xl': ['44px', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '800' }],
         'display-l': ['27px', { lineHeight: '1.16', letterSpacing: '-0.01em', fontWeight: '700' }],
         title: ['20px', { lineHeight: '1.3', fontWeight: '600' }],
@@ -29,7 +30,7 @@ export default {
         data: ['14px', { lineHeight: '1.4' }],
       },
       spacing: { gutter: '18px', ledger: '3px' },
-      maxWidth: { measure: '480px', reading: '620px', shell: '1000px' },
+      maxWidth: { action: '300px', measure: '480px', reading: '620px', shell: '1000px' },
       height: { slot: '40px', 'slot-xs': '46px' },
       borderWidth: { hair: '1.5px' },
       borderRadius: { sm: '2px', DEFAULT: '6px', lg: '14px' },
