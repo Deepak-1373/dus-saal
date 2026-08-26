@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    background-color: theme('colors.paper');
+  }
+
+  body {
+    @apply bg-paper font-sans text-body text-ink;
+  }
+
+  /* Replaces the UA outline rather than removing it: 3px indigo at 2px offset. */
+  :focus-visible {
+    outline: 3px solid theme('colors.indigo.DEFAULT');
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .ledger-hatch {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent 0 2px,
+      color-mix(in srgb, theme('colors.uncounted.DEFAULT') 50%, transparent) 2px 5px
+    );
+  }
+
+  /* The app's only animation. Reduced motion renders the bar already filled. */
+  .ledger-fill {
+    transform-origin: bottom;
+    animation: ledger-fill 600ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  @keyframes ledger-fill {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ledger-fill {
+      animation: none;
+    }
+  }
+}

@@ -1,4 +1,6 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import AppShell from './components/AppShell';
+import TextLink from './components/TextLink';
 import About from './routes/About';
 import Fix from './routes/Fix';
 import Landing from './routes/Landing';
@@ -19,25 +21,23 @@ const ROUTES = [
 
 export default function App() {
   return (
-    <div className="mx-auto max-w-screen-sm px-4 py-6">
+    <AppShell>
       <Routes>
         {ROUTES.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
       </Routes>
 
-      {/* Scaffold route index. DUS-104 replaces this with the real shell. */}
-      <nav aria-label="Screens" className="mt-8 border-t pt-4">
+      {/* Scaffold route index. DUS-301 replaces this with the real landing screen. */}
+      <nav aria-label="Screens" className="mt-10 border-t border-rule pt-4">
         <ul>
           {ROUTES.map(({ path, label }) => (
             <li key={path}>
-              <Link to={path} className="flex min-h-12 items-center underline">
-                {label}
-              </Link>
+              <TextLink to={path}>{label}</TextLink>
             </li>
           ))}
         </ul>
       </nav>
-    </div>
+    </AppShell>
   );
 }
