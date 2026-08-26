@@ -4,7 +4,7 @@ export default {
     extend: {
       colors: {
         ink: { DEFAULT: '#1A1F3A', 2: '#4A4F66', 3: '#666A7D' },
-        indigo: { DEFAULT: '#2E3A8C', dark: '#232C6B' },
+        indigo: { DEFAULT: '#2E3A8C', dark: '#232C6B', bg: '#EEF0F8' },
         counted: { DEFAULT: '#2E6B52', bg: '#E8F0EB' },
         uncounted: { DEFAULT: '#A8541B', bg: '#FBEFE4' },
         alert: '#9E2B20',
