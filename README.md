@@ -6,19 +6,21 @@
 >
 > No signup. Any UAN, any six digits as the code. A scenario picker on the sign-in screen lets you try all three cases in under twenty seconds.
 
-Built for Build what moves India 
+Built for Build what moves India
 
 ---
 
 ## ⚠️ Please read first
 
-This is a **prototype built with entirely invented data**. It does not connect to EPFO or any government system.
+This is a **prototype built with entirely invented data**. It does not connect to EPFO or any government system. A banner saying *"Demo — mock data. Not connected to any EPFO system."* is fixed to every screen and cannot be dismissed.
 
-- All names, UANs, employers, balances and dates are fictional. No real person's data appears anywhere.
-- No live government system is contacted, queried, scraped or reverse-engineered. No APIs, documented or otherwise.
-- No Aadhaar, PAN, password, OTP or payment data is collected. The code field accepts any six digits and validates nothing.
+- All names, UANs, employers, balances and dates are invented. No real person's data appears anywhere.
+- No live government system is contacted, queried or scraped. No APIs, documented or otherwise.
+- No Aadhaar, PAN, password, OTP or payment data is collected. The OTP field accepts any six digits and validates nothing.
 - Nothing is stored. No database, no analytics, no cookies. State lives in memory for the length of your session.
 - **Not affiliated with, endorsed by, or connected to EPFO, the Ministry of Labour and Employment, or any government body.** No government logos or emblems are used anywhere in this project.
+- The four-condition logic reflects publicly reported EPFO rules as of August 2026. Rules changed substantially this year and continue to change; verify anything actionable at [epfindia.gov.in](https://www.epfindia.gov.in).
+- Out of scope: duplicate UANs, exempted establishments with private PF trusts, Annexure K reconciliation, and any real claim filing.
 
 ---
 
@@ -44,15 +46,9 @@ The most useful thing it surfaces: if a former employer never recorded your last
 | **Rahul** | A name mismatch with Aadhaar. Balance correct on every account, service fragmented across all three jobs. |
 | **Anjali** | Everything in order. 7 years 1 month recognised, on track. |
 
-## Stack
-
-React 18 · TypeScript · Vite · Tailwind CSS · React Router
-
-No backend, no database, no authentication. All data is static fixtures in `src/data/`. Deployed on Vercel.
-
-**Built for real conditions:** mobile-first from 320px, under 150KB of JS, tested on throttled 3G, full keyboard navigation, WCAG AA contrast throughout, English and Hindi.
-
 ## Run locally
+
+Requires **Node 20.19+ or 22.12+** (Vite 7). Nothing else — no environment variables, no services, no accounts.
 
 ```bash
 git clone https://github.com/[your-username]/dus-saal.git
@@ -61,20 +57,65 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173
+Open http://localhost:5173.
+
+| Script | What it does |
+|---|---|
+| `npm run dev` | Dev server with hot reload |
+| `npm run build` | Type-check, then production build into `dist/` |
+| `npm run typecheck` | Type-check only |
+| `npm run preview` | Serve the production build locally |
+
+## Screens
+
+Seven routes, all reachable from the list at the bottom of every page until the app shell lands in DUS-104.
+
+| Route | Screen | Ticket |
+|---|---|---|
+| `/` | Landing | DUS-301 |
+| `/sign-in` | Mock sign-in and scenario picker | DUS-301 |
+| `/verdict` | The verdict — recognised service against ten years | DUS-201 |
+| `/fix` | Fix the broken condition | DUS-202 |
+| `/timeline` | Employment timeline | DUS-302 |
+| `/tracker` | Tracker | DUS-303 |
+| `/about` | About and full disclosure | DUS-401 |
+
+## Stack
+
+React 19 · TypeScript · Vite · Tailwind CSS · React Router
+
+No backend, no database, no authentication. All data is static fixtures in `src/data/`. Deployed on Vercel.
+
+**Targets we hold ourselves to:** mobile-first from 320px, under 150KB of JS, usable on throttled 3G, full keyboard navigation, WCAG AA contrast throughout, English and Hindi.
 
 ## Project structure
 
+Files marked *pending* are scheduled in the sprint backlog and do not exist yet.
+
 ```
 src/
-├── types/index.ts      Data contract — shared by everything
-├── data/personas.ts    The three synthetic scenarios
-├── lib/service.ts      Service calculation (pure, no React)
-├── lib/format.ts       Paise → ₹, months → "4 years 2 months"
-├── i18n/strings.ts     English and Hindi
-├── components/         Shared UI primitives
-└── routes/             The seven screens
+├── types/index.ts      Data contract — shared by everything (DUS-101)
+├── App.tsx             Router and route index (DUS-101)
+├── data/personas.ts    The three synthetic scenarios (pending, DUS-102)
+├── lib/service.ts      Service calculation, pure, no React (pending, DUS-103)
+├── lib/format.ts       Paise → ₹, months → "4 years 2 months" (pending, DUS-103)
+├── i18n/strings.ts     English and Hindi (pending, DUS-402)
+├── components/         Shared UI primitives (pending, DUS-104)
+└── routes/             The seven screens (DUS-101, filled in later tickets)
 ```
+
+`src/types/index.ts` is the contract between both of us. **Never edit it without messaging the other person first.**
+
+## Deploying
+
+Vercel, connected to this GitHub repo. `vercel.json` pins the framework, build command, output directory, and an SPA rewrite so deep links like `/verdict` resolve on refresh.
+
+The production domain is reserved but was serving a 404 until this ticket, because `main` had no application to build. Once this lands, confirm:
+
+1. The production URL loads in a private window with no login prompt.
+2. `/verdict` still resolves after a hard refresh — that is the SPA rewrite doing its job.
+
+Every push to `main` redeploys production automatically. Pull requests get their own preview URL.
 
 ## Planning documents
 
