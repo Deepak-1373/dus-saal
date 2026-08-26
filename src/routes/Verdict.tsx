@@ -6,12 +6,14 @@ import StatusRow from '../components/StatusRow';
 import StickyActionBar from '../components/StickyActionBar';
 import { formatMonths } from '../lib/format';
 import { computeVerdict, DEMO_AS_OF, PENSION_THRESHOLD_MONTHS } from '../lib/service';
+import { withPersona } from '../lib/fix';
 import { primaryAction, resolvePersona } from '../lib/verdict';
 
 export default function Verdict() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const persona = resolvePersona(params.get('persona'));
+  const personaId = params.get('persona');
+  const persona = resolvePersona(personaId);
   const verdict = computeVerdict(persona, DEMO_AS_OF);
   const action = primaryAction(verdict);
 
@@ -54,7 +56,7 @@ export default function Verdict() {
             status={check.status}
             label={check.label}
             detail={check.status === 'fail' ? check.detail : undefined}
-            onClick={() => navigate(`/fix/${check.id}`)}
+            onClick={() => navigate(withPersona(`/fix/${check.id}`, personaId))}
           />
         ))}
 
@@ -74,7 +76,7 @@ export default function Verdict() {
         </div>
 
         <StickyActionBar>
-          <Button onClick={() => navigate(action.to)}>{action.label}</Button>
+          <Button onClick={() => navigate(withPersona(action.to, personaId))}>{action.label}</Button>
         </StickyActionBar>
       </section>
     </div>
