@@ -41,10 +41,11 @@ export default function StatusRow({ status, label, detail, statusWord, onClick, 
     </>
   );
 
-  const shared = 'flex w-full min-h-touch items-start gap-3 border-b border-rule-2 py-3 text-left';
+  // -mx-2 lets the hover fill bleed past the text so it never meets the chevron.
+  const shared = 'flex w-full min-h-touch items-start gap-3 rounded border-b border-rule-2 -mx-2 px-2 py-3 text-left';
 
   return onClick ? (
-    <button type="button" onClick={onClick} className={`${shared} hover:bg-rule-2`}>
+    <button type="button" onClick={onClick} className={`${shared} hover:bg-indigo-bg`}>
       {body}
     </button>
   ) : (
