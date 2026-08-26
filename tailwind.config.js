@@ -1,8 +1,44 @@
-// Tokens land in DUS-104. Keep this file token-free until then.
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        ink: { DEFAULT: '#1A1F3A', 2: '#4A4F66', 3: '#666A7D' },
+        indigo: { DEFAULT: '#2E3A8C', dark: '#232C6B' },
+        counted: { DEFAULT: '#2E6B52', bg: '#E8F0EB' },
+        uncounted: { DEFAULT: '#A8541B', bg: '#FBEFE4' },
+        alert: '#9E2B20',
+        paper: '#F5F6F4',
+        card: '#FFFFFF',
+        rule: { DEFAULT: '#DEDFDA', 2: '#EBECE8' },
+        banner: '#2A2F4A',
+      },
+      fontFamily: {
+        sans: ['Anek Latin', 'Anek Devanagari', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
+      },
+      fontSize: {
+        'display-xl': ['44px', { lineHeight: '1', letterSpacing: '-0.025em', fontWeight: '800' }],
+        'display-l': ['27px', { lineHeight: '1.16', letterSpacing: '-0.01em', fontWeight: '700' }],
+        title: ['20px', { lineHeight: '1.3', fontWeight: '600' }],
+        'body-l': ['18px', { lineHeight: '1.5' }],
+        body: ['17px', { lineHeight: '1.55' }],
+        'body-s': ['15px', { lineHeight: '1.5' }],
+        label: ['14px', { lineHeight: '1.4', letterSpacing: '0.07em', fontWeight: '600' }],
+        caption: ['14px', { lineHeight: '1.5' }],
+        data: ['14px', { lineHeight: '1.4' }],
+      },
+      spacing: { gutter: '18px', ledger: '3px' },
+      maxWidth: { measure: '480px', reading: '620px', shell: '1000px' },
+      height: { slot: '40px', 'slot-xs': '46px' },
+      borderWidth: { hair: '1.5px' },
+      borderRadius: { sm: '2px', DEFAULT: '6px', lg: '14px' },
+      minHeight: { touch: '48px' },
+      minWidth: { touch: '48px' },
+      boxShadow: { sticky: '0 1px 3px rgba(26,31,58,.08)' },
+      screens: { xs: '360px', sm: '480px', md: '768px', lg: '1024px' },
+      transitionTimingFunction: { ledger: 'cubic-bezier(.22,.61,.36,1)' },
+    },
   },
   plugins: [],
 };
