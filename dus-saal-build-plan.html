@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dus Saal — Build Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF0EF;
+  --card:#F8FAF9;
+  --ink:#12181F;
+  --ink-soft:#4A575C;
+  --ink-faint:#7A8689;
+  --rule:#C6D0CD;
+  --rule-soft:#DBE2E0;
+  --a:#2C3E8F;
+  --b:#B33A28;
+  --both:#8A6D1D;
+  --pass:#1F6E5C;
+  --maxw:920px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px 120px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px solid var(--ink);padding:44px 0 22px;margin-bottom:0}
+.stamp-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:26px}
+.stamp{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  border:1.5px solid currentColor;border-radius:2px;padding:4px 9px;line-height:1.2;
+}
+.stamp.red{color:var(--b)}
+.stamp.blue{color:var(--a)}
+.stamp.plain{color:var(--ink-soft)}
+h1{
+  font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;
+  font-size:clamp(46px,9vw,86px);line-height:.92;letter-spacing:-.02em;
+  margin:0 0 6px;text-transform:uppercase;
+}
+.subtitle{
+  font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.06em;
+  color:var(--ink-soft);margin:0 0 4px;
+}
+.tagline{font-size:20px;line-height:1.4;max-width:56ch;margin:18px 0 0;color:var(--ink)}
+
+/* ---------- sections ---------- */
+section{padding:52px 0;border-bottom:1px solid var(--rule)}
+section:last-of-type{border-bottom:none}
+.sec-label{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);
+  margin:0 0 10px;display:block;
+}
+h2{
+  font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;
+  font-size:clamp(28px,4.5vw,40px);line-height:1.04;letter-spacing:-.01em;
+  margin:0 0 20px;text-transform:uppercase;
+}
+h3{
+  font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;
+  font-size:21px;line-height:1.2;margin:34px 0 10px;letter-spacing:.005em;
+}
+h4{font-size:14px;font-weight:600;margin:22px 0 6px;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0 0 14px;max-width:70ch}
+ul,ol{margin:0 0 14px;padding-left:20px;max-width:70ch}
+li{margin-bottom:7px}
+strong{font-weight:600}
+em{font-style:italic}
+code{font-family:"IBM Plex Mono",monospace;font-size:.88em;background:#E1E7E5;padding:1px 5px;border-radius:2px}
+a{color:var(--a)}
+
+.lede{font-size:19px;line-height:1.5;max-width:62ch}
+
+/* ---------- ledger hero ---------- */
+.ledger{
+  background:var(--card);border:1.5px solid var(--ink);border-radius:3px;
+  padding:26px 24px 22px;margin:34px 0 8px;
+}
+.ledger-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.ledger-title{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.ledger-need{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--b)}
+.bars{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:16px 0 14px}
+.slot{height:56px;border:1.5px solid var(--rule);border-radius:2px;background:transparent;position:relative}
+.slot.filled{background:var(--pass);border-color:var(--pass)}
+.slot.partial{background:linear-gradient(to top,var(--pass) 17%,transparent 17%);border-color:var(--pass)}
+.slot.gap{
+  border-color:var(--b);border-style:dashed;
+  background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(179,58,40,.13) 4px,rgba(179,58,40,.13) 8px);
+}
+.slot-nums{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--ink-faint);text-align:center}
+.ledger-read{display:flex;flex-wrap:wrap;gap:26px;margin-top:20px;padding-top:18px;border-top:1px solid var(--rule-soft)}
+.read-item{flex:1;min-width:130px}
+.read-k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:3px}
+.read-v{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:27px;font-weight:700;line-height:1.05;display:block}
+.read-v.bad{color:var(--b)}
+.read-v.good{color:var(--pass)}
+.caption{font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.6;color:var(--ink-soft);max-width:72ch;margin:12px 0 0}
+
+/* ---------- callouts ---------- */
+.callout{border-left:3px solid var(--ink);padding:2px 0 2px 18px;margin:22px 0;max-width:70ch}
+.callout.warn{border-left-color:var(--b)}
+.callout.note{border-left-color:var(--a)}
+.callout p:last-child{margin-bottom:0}
+.callout-k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:5px}
+
+/* ---------- owner tags ---------- */
+.own{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;padding:2px 7px;border-radius:2px;white-space:nowrap;
+  border:1.5px solid currentColor;display:inline-block;line-height:1.35;
+}
+.own.a{color:var(--a)}
+.own.b{color:var(--b)}
+.own.both{color:var(--both)}
+
+/* ---------- tables ---------- */
+.tbl-scroll{overflow-x:auto;margin:20px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+th{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;text-align:left;color:var(--ink-faint);
+  border-bottom:1.5px solid var(--ink);padding:0 12px 8px 0;vertical-align:bottom;
+}
+td{padding:13px 12px 13px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+td.mono,th.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+td.branch{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink);white-space:nowrap}
+.pr-n{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px}
+
+/* ---------- screen cards ---------- */
+.screen{border-top:1px solid var(--rule-soft);padding:24px 0 6px}
+.screen:first-of-type{border-top:1.5px solid var(--ink)}
+.screen-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.screen-n{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--ink-faint);letter-spacing:.08em}
+.screen-t{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:22px;line-height:1.15}
+.spec{margin:12px 0 0;padding:0;list-style:none;max-width:72ch}
+.spec li{padding-left:16px;position:relative;margin-bottom:6px;font-size:15px}
+.spec li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1.5px;background:var(--ink-faint)}
+
+/* ---------- wireframe ---------- */
+pre.wire{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.45;
+  background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0;color:var(--ink-soft);
+}
+pre.code{
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.6;
+  background:#11181D;color:#D6E0DC;border-radius:3px;
+  padding:20px;overflow-x:auto;margin:16px 0;
+}
+pre.code .c{color:#6E8079}
+pre.code .k{color:#8FB8FF}
+pre.code .s{color:#E0A97B}
+
+/* ---------- swatches ---------- */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(126px,1fr));gap:12px;margin:18px 0}
+.sw{border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:var(--card)}
+.sw-chip{height:52px}
+.sw-meta{padding:7px 9px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.5}
+.sw-name{display:block;font-weight:600;color:var(--ink)}
+.sw-hex{display:block;color:var(--ink-faint)}
+
+/* ---------- checklist ---------- */
+.check{list-style:none;padding:0;margin:14px 0;max-width:72ch}
+.check li{padding-left:30px;position:relative;margin-bottom:9px}
+.check li::before{
+  content:"";position:absolute;left:0;top:4px;width:15px;height:15px;
+  border:1.5px solid var(--ink-soft);border-radius:2px;
+}
+
+/* ---------- day plan ---------- */
+.slotrow{display:flex;gap:16px;padding:13px 0;border-bottom:1px solid var(--rule-soft);align-items:flex-start}
+.slotrow:last-child{border-bottom:none}
+.slot-time{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;min-width:96px;color:var(--ink-soft);padding-top:2px}
+.slot-body{flex:1}
+.slot-body p{margin:0;font-size:15px}
+
+/* ---------- jira tickets ---------- */
+.ticket{
+  border:1px solid var(--rule);border-left:4px solid var(--rule);border-radius:3px;
+  background:var(--card);padding:20px 22px;margin:0 0 16px;
+}
+.ticket.a{border-left-color:var(--a)}
+.ticket.b{border-left-color:var(--b)}
+.ticket.ab{border-left-color:var(--both)}
+.t-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.t-key{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:600;letter-spacing:.06em}
+.t-type{
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;color:#fff;line-height:1.4;
+}
+.t-type.story{background:var(--pass)}
+.t-type.task{background:var(--a)}
+.t-type.chore{background:#6B7573}
+.t-sum{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:19px;line-height:1.2;margin:0 0 12px}
+.t-meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px 16px;
+  padding:11px 0;border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft);margin-bottom:13px;
+}
+.t-f{min-width:0}
+.t-fk{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);display:block}
+.t-fv{font-size:13px;font-weight:500;display:block;line-height:1.35;margin-top:2px}
+.t-fv.mono{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:400}
+.t-h{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin:14px 0 5px}
+.ticket p{font-size:14.5px;margin:0 0 9px;max-width:68ch}
+.ac{list-style:none;padding:0;margin:0;counter-reset:ac}
+.ac li{
+  counter-increment:ac;position:relative;padding-left:30px;margin-bottom:7px;
+  font-size:14px;line-height:1.55;max-width:68ch;
+}
+.ac li::before{
+  content:"AC" counter(ac);position:absolute;left:0;top:1px;
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;color:var(--ink-faint);
+}
+.dod{font-size:13.5px;font-style:italic;color:var(--ink-soft);margin:0;max-width:68ch}
+.epic-key{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600}
+@media (max-width:520px){.t-meta{grid-template-columns:repeat(2,1fr)}}
+
+.footer-note{
+  margin-top:56px;padding-top:26px;border-top:3px solid var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.7;color:var(--ink-soft);
+}
+
+@media (max-width:640px){
+  .wrap{padding:0 18px 80px}
+  .bars,.slot-nums{gap:3px}
+  .slot{height:44px}
+  .ledger{padding:20px 16px}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  section{page-break-inside:auto;padding:26px 0}
+  h2,h3{page-break-after:avoid}
+  table,.ledger,pre{page-break-inside:avoid}
+  pre.code{background:#F2F4F3;color:#12181F;border:1px solid #C6D0CD}
+  pre.code .c{color:#6B7A75}pre.code .k{color:#2C3E8F}pre.code .s{color:#8A5A2B}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="stamp-row">
+    <span class="stamp red">Deadline · 28 Aug 2026 · 20:00 IST</span>
+    <span class="stamp plain">Team of 2</span>
+    <span class="stamp blue">Prototype · Mock data only</span>
+  </div>
+  <p class="subtitle">BUILD PLAN — v1</p>
+  <h1>Dus Saal</h1>
+  <p class="tagline">Check whether your PF years actually count toward a pension — before it's too late to fix.</p>
+</header>
+
+<!-- ============ PROBLEM ============ -->
+<section id="problem">
+  <span class="sec-label">The problem</span>
+  <h2>Your money moves. Your years don't.</h2>
+
+  <p class="lede">Since July 2026, EPFO transfers your PF automatically when you change jobs. It works — but only if four separate conditions are all true at once. If any one fails, nothing moves, and nobody tells you.</p>
+
+  <p>The four conditions: Aadhaar linked and verified on your UAN; name, date of birth and gender matching across old and new employer records; your previous employer having marked your date of exit; and your new employer having made at least one PF deposit. Miss one and you are back to filing Form 13 by hand — except you don't know you need to, because there is no error, no notification, no failed state shown anywhere.</p>
+
+  <h3>Why this is serious, not just annoying</h3>
+
+  <p>Part of every PF contribution funds EPS, the pension scheme. <strong>You need ten years of recognised service to qualify for a monthly pension for life.</strong> Below ten years, you get a lump sum and no pension — permanently.</p>
+
+  <p>Those ten years only count if your service history stitches together across employers. And here is the part almost nobody knows: <strong>your balance can be completely correct while your service history is not merged.</strong> A transfer marked "settled" does not guarantee the service record updated in the same pass. So the portal shows you a healthy balance, everything looks fine, and your pension eligibility is quietly broken.</p>
+
+  <p>You find out when you file for pension. At 58. That is roughly thirty years too late to do anything about it.</p>
+
+  <div class="ledger">
+    <div class="ledger-top">
+      <span class="ledger-title">Recognised pensionable service — demo persona</span>
+      <span class="ledger-need">10 years required</span>
+    </div>
+    <div class="bars">
+      <div class="slot filled"></div>
+      <div class="slot filled"></div>
+      <div class="slot filled"></div>
+      <div class="slot filled"></div>
+      <div class="slot partial"></div>
+      <div class="slot gap"></div>
+      <div class="slot gap"></div>
+      <div class="slot"></div>
+      <div class="slot"></div>
+      <div class="slot"></div>
+    </div>
+    <div class="slot-nums">
+      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+      <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+    </div>
+    <div class="ledger-read">
+      <div class="read-item">
+        <span class="read-k">You believe</span>
+        <span class="read-v">6y 4m</span>
+      </div>
+      <div class="read-item">
+        <span class="read-k">Actually recognised</span>
+        <span class="read-v bad">4y 2m</span>
+      </div>
+      <div class="read-item">
+        <span class="read-k">Missing</span>
+        <span class="read-v bad">2y 2m</span>
+      </div>
+      <div class="read-item">
+        <span class="read-k">Balance shown</span>
+        <span class="read-v good">Correct</span>
+      </div>
+    </div>
+  </div>
+  <p class="caption">Solid = counted. Hatched = worked, but not recognised because a transfer silently failed. This graphic is the product. Everything else is supporting evidence.</p>
+
+  <h3>What we are building</h3>
+  <p><strong>One screen that shows the number the portal never shows you: your recognised service, against the ten years you need.</strong> Then it tells you which of the four conditions broke, and exactly how to fix that one.</p>
+
+  <div class="callout note">
+    <span class="callout-k">The one-line pitch</span>
+    <p>The portal shows you a balance, which looks fine. We show your service count, which decides your pension.</p>
+  </div>
+
+  <h3>Why now</h3>
+  <ul>
+    <li>Auto-transfer went live in July 2026 — most people don't know the conditions attached to it.</li>
+    <li>The EPF Scheme 2026 replaced the 1952 scheme on 29 June 2026; EPS 2026 replaced EPS 1995 the same day, keeping the ten-year rule.</li>
+    <li>The member portal went through a week-long outage and database migration in late June 2026 and came back with a new Member Service History page. Rules and screens changed under people's feet this year.</li>
+    <li>Roughly ₹9,330 crore sits in about 30.9 lakh inoperative EPF accounts as of 31 March 2026. Money does get stranded in this system at crore scale.</li>
+  </ul>
+
+  <div class="callout warn">
+    <span class="callout-k">Do not overclaim this</span>
+    <p>The ₹9,330 crore figure is for <em>inoperative</em> accounts, which has a narrow legal definition (broadly, dormancy after retirement, permanent migration or death) — it is not "money forgotten by job switchers." Use it as evidence that stranding happens at scale, never as a headline claim about our specific problem. Honesty is a scored criterion. A judge who knows the definition and catches us overreaching costs us more than the stat gains.</p>
+  </div>
+
+  <h3>Explicitly out of scope</h3>
+  <p>Say these out loud in the video. Naming what you deliberately didn't build reads as judgement, not as a gap.</p>
+  <ul>
+    <li><strong>Duplicate UANs.</strong> A separate and messier fix requiring the older UAN to be formally closed first.</li>
+    <li><strong>Exempted establishments</strong> (companies running their own private PF trusts) — different process, Annexure K, different timelines.</li>
+    <li><strong>Annexure K reconciliation.</strong> We flag that service history can lag a settled transfer; we don't reconcile it.</li>
+    <li><strong>Any live EPFO connection.</strong> Zero. By design and by rule.</li>
+  </ul>
+</section>
+
+<!-- ============ PRODUCT ============ -->
+<section id="product">
+  <span class="sec-label">The product</span>
+  <h2>Six screens, one journey</h2>
+  <p class="lede">Land → sign in → see the verdict → fix the broken thing → understand the history → track it. That is the whole app. Nothing else gets built.</p>
+
+  <div class="screen">
+    <div class="screen-head"><span class="screen-n">S1</span><span class="screen-t">Landing</span><span class="own b">Owner B</span></div>
+    <ul class="spec">
+      <li>Single headline: <em>"Changed jobs? Your PF years may not be counting."</em></li>
+      <li>Two lines explaining the ten-year rule. No more.</li>
+      <li>One primary button: <strong>Check my service record</strong>. One secondary: <strong>How this works</strong>.</li>
+      <li>Demo disclosure banner visible without scrolling.</li>
+      <li>Loads in under 1s on 3G. No hero image, no carousel, no animation on load.</li>
+    </ul>
+  </div>
+
+  <div class="screen">
+    <div class="screen-head"><span class="screen-n">S2</span><span class="screen-t">Mock sign-in + persona picker</span><span class="own b">Owner B</span></div>
+    <ul class="spec">
+      <li>Fake UAN field, pre-filled. Any 6 digits accepted as OTP; show the accepted value as a hint on screen.</li>
+      <li><strong>Persona picker is mandatory</strong> — judges must be able to try all three states in under 20 seconds without logging out. Put it directly on this screen.</li>
+      <li>Copy under the OTP box: "This is a demo. Any six digits will work. No real OTP is sent and no EPFO system is contacted."</li>
+      <li>Never use a real-looking UAN format that could be someone's actual number. Use an obviously invalid prefix and say so.</li>
+    </ul>
+  </div>
+
+  <div class="screen">
+    <div class="screen-head"><span class="screen-n">S3</span><span class="screen-t">The verdict</span><span class="own a">Owner A</span><span class="stamp plain">Hero screen</span></div>
+    <p>This is the screen the entire submission is judged on. Build it first, polish it last.</p>
+    <pre class="wire">┌──────────────────────────────────────┐
+│  ⚠ DEMO — mock data, not EPFO        │
+├──────────────────────────────────────┤
+│                                      │
+│  Your recognised service             │
+│                                      │
+│  4 years 2 months                    │   ← 40px+, the largest thing on screen
+│  You need 10 for a monthly pension   │
+│                                      │
+│  ███████▓░░░░░░░░░░░  4.2 / 10       │   ← the ledger bar
+│                                      │
+│  You believe you have 6y 4m.         │
+│  2 years 2 months are not counting.  │
+│                                      │
+├──────────────────────────────────────┤
+│  WHY                                 │
+│                                      │
+│  ✓ Aadhaar linked                    │
+│  ✓ Name and date of birth match      │
+│  ✗ Last working day not recorded     │   ← tap target, full row
+│      by Fynd Technologies            │
+│  ✓ ZoomInfo has made a deposit       │
+│                                      │
+├──────────────────────────────────────┤
+│  [ Fix the one that failed ]         │   ← single primary action, sticky
+└──────────────────────────────────────┘</pre>
+    <ul class="spec">
+      <li>The big number is <strong>recognised service</strong>, never the balance. If someone remembers one thing from the demo, it is this number.</li>
+      <li>Each of the four conditions is a full-width tappable row, minimum 48px tall, with the plain-language name — never the EPFO jargon as the primary label.</li>
+      <li>Failed rows name the specific employer. "Fynd Technologies has not recorded your last working day" beats "Date of exit missing."</li>
+      <li>Exactly one primary action at the bottom. Sticky on mobile.</li>
+      <li>Member IDs hidden behind a "Show technical details" disclosure. They are noise for the user and clutter in a screenshot.</li>
+    </ul>
+  </div>
+
+  <div class="screen">
+    <div class="screen-head"><span class="screen-n">S4</span><span class="screen-t">Fix the broken condition</span><span class="own b">Owner B</span><span class="stamp plain">Demo payoff</span></div>
+    <p>One page per failure type. The default persona fails on <strong>exit date</strong> because that produces the best demo moment.</p>
+    <ul class="spec">
+      <li><strong>Exit date not marked:</strong> "Your old employer never recorded your last working day. You don't need them — you can mark it yourself." Then: you can self-mark on the member portal roughly two months after your last contribution, using your actual last working day backed by a relieving letter. Fallbacks if self-marking is closed to you: written request to the employer, then a grievance on EPFiGMS.</li>
+      <li><strong>Name / DOB mismatch:</strong> point to self-correction of personal details, which no longer needs employer approval in most cases.</li>
+      <li><strong>Aadhaar not seeded:</strong> Manage → KYC on the member portal.</li>
+      <li><strong>No first deposit yet:</strong> "Nothing is wrong. Wait until after your first salary at the new job, then check again." — an all-clear is a valid, useful answer and the UI must be able to say so calmly.</li>
+      <li>Every fix page ends with: <em>what to do</em>, <em>how long it takes</em>, <em>what to do if it doesn't work</em>. Three blocks, in that order, every time.</li>
+      <li>Mention the EPFO term (Form 13, date of exit) only as a parenthetical after the plain-language version. Users need the jargon to search for it later — they just shouldn't have to read it first.</li>
+    </ul>
+  </div>
+
+  <div class="screen">
+    <div class="screen-head"><span class="screen-n">S5</span><span class="screen-t">Employment timeline</span><span class="own b">Owner B</span></div>
+    <ul class="spec">
+      <li>One row per job: employer name, dates, duration.</li>
+      <li><strong>Two status columns per row: Money and Service.</strong> Showing these disagree on the same row is the most persuasive thing in the app.</li>
+      <li>Plain status words: "₹1,84,320 still sitting here" / "These 2 years are not counting."</li>
+      <li>Employer name is the primary label. The member ID is behind a disclosure.</li>
+      <li>Vertical list on mobile. No horizontal scroll, ever.</li>
+    </ul>
+  </div>
+
+  <div class="screen">
+    <div class="screen-head"><span class="screen-n">S6</span><span class="screen-t">Tracker</span><span class="own a">Owner A</span></div>
+    <ul class="spec">
+      <li>Four states in plain English: <em>Submitted → Waiting on your old employer → With the EPFO office → Done.</em></li>
+      <li>Each state carries an expected duration and one line on what to do if it stalls.</li>
+      <li>Stuck for more than 15 days → surface the EPFiGMS grievance route.</li>
+      <li>An SMS mock ("we'd text you at each stage") — this is how you show you thought about people without smartphones. One static mock is enough; do not build notifications.</li>
+    </ul>
+  </div>
+
+  <h3>Cut list, in this exact order</h3>
+  <p>If you are behind, cut from the top of this list. Never touch S3 or S4.</p>
+  <ol>
+    <li>Hindi strings</li>
+    <li>S6 Tracker</li>
+    <li>SMS mock</li>
+    <li>Third persona</li>
+  </ol>
+</section>
+
+<!-- ============ DATA ============ -->
+<section id="data">
+  <span class="sec-label">Data contract</span>
+  <h2>Agree this in hour one</h2>
+  <p class="lede">This file is the interface between the two of you. Once it is merged, you can both work for eight hours without blocking each other. Do not start any screen before this lands.</p>
+
+  <pre class="code"><span class="c">// src/types/index.ts — DUS-101. Do not change without telling the other person.</span>
+
+<span class="k">export type</span> CheckId = <span class="s">'aadhaar'</span> | <span class="s">'identity_match'</span> | <span class="s">'exit_date'</span> | <span class="s">'first_deposit'</span>;
+<span class="k">export type</span> CheckStatus = <span class="s">'pass'</span> | <span class="s">'fail'</span> | <span class="s">'not_applicable'</span>;
+
+<span class="k">export interface</span> TransferCheck {
+  id: CheckId;
+  status: CheckStatus;
+  label: string;          <span class="c">// plain language, user-facing</span>
+  labelHi: string;
+  detail: string;         <span class="c">// what it means, one sentence</span>
+  detailHi: string;
+  blamedEmployerId?: string;   <span class="c">// which job caused this</span>
+  jargon?: string;        <span class="c">// e.g. "Date of Exit" — shown in parentheses only</span>
+}
+
+<span class="k">export interface</span> Employment {
+  id: string;
+  employerName: string;
+  memberId: string;             <span class="c">// hidden by default in UI</span>
+  fromDate: string;             <span class="c">// 'YYYY-MM-DD'</span>
+  toDate: string | null;        <span class="c">// null = current job</span>
+  balancePaise: number;         <span class="c">// integers only, never floats for money</span>
+  balanceTransferred: boolean;  <span class="c">// did the money move?</span>
+  serviceRecognised: boolean;   <span class="c">// do these years count? ← the whole point</span>
+  exitDateMarked: boolean;
+}
+
+<span class="k">export interface</span> Persona {
+  id: string;
+  displayName: string;
+  mockUan: string;              <span class="c">// obviously invalid, e.g. '0000 0000 0001'</span>
+  scenarioLabel: string;        <span class="c">// shown in the picker: "Exit date not marked"</span>
+  employments: Employment[];
+  checks: TransferCheck[];
+}
+
+<span class="c">// Everything below is DERIVED. Never stored in the persona fixtures.</span>
+<span class="k">export interface</span> ServiceVerdict {
+  believedMonths: number;
+  recognisedMonths: number;
+  gapMonths: number;
+  strandedPaise: number;
+  totalPaise: number;
+  monthsToTen: number;
+  eligible: boolean;
+  failedChecks: TransferCheck[];
+}</pre>
+
+  <div class="callout">
+    <span class="callout-k">Two rules that will save you a bug hunt</span>
+    <p><strong>Money is integer paise, always.</strong> Format at the edge, never store rupees as floats.<br>
+    <strong>Service is integer months, always.</strong> Convert to "4 years 2 months" only in the display layer. Every off-by-one in this app will otherwise be a date arithmetic bug at 2am.</p>
+  </div>
+
+  <h3>The three personas</h3>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>ID</th><th>Scenario</th><th>What breaks</th><th>Why it exists</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="mono">priya</td>
+        <td>Exit date not marked</td>
+        <td>Middle job's exit never recorded. Money partly stranded, 2y 2m not counting.</td>
+        <td><strong>The demo default.</strong> Best payoff — the fix is something they can do themselves.</td>
+      </tr>
+      <tr>
+        <td class="mono">rahul</td>
+        <td>Name mismatch with Aadhaar</td>
+        <td>Auto-transfer never fires. Balance correct on each account, service fully fragmented across 3 jobs.</td>
+        <td>Shows the "money looks fine, service is broken" case in its purest form.</td>
+      </tr>
+      <tr>
+        <td class="mono">anjali</td>
+        <td>All clear</td>
+        <td>Nothing. 7y 1m recognised, on track.</td>
+        <td>Proves the app can deliver good news calmly. Judges will click it — an app that only knows how to alarm looks unfinished.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ DESIGN ============ -->
+<section id="design">
+  <span class="sec-label">Design system</span>
+  <h2>Built for a worried person on a slow phone</h2>
+  <p class="lede">The user is reading about their retirement. Calm, not clinical. Serious, not alarming. Nothing on screen should look like a government form, and nothing should look like a fintech growth app either.</p>
+
+  <h3>Palette</h3>
+  <div class="swatches">
+    <div class="sw"><div class="sw-chip" style="background:#0F2E2B"></div><div class="sw-meta"><span class="sw-name">ink</span><span class="sw-hex">#0F2E2B</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#0B6E5F"></div><div class="sw-meta"><span class="sw-name">action</span><span class="sw-hex">#0B6E5F</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#1F7A5A"></div><div class="sw-meta"><span class="sw-name">pass</span><span class="sw-hex">#1F7A5A</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#C2410C"></div><div class="sw-meta"><span class="sw-name">attention</span><span class="sw-hex">#C2410C</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#5B6B68"></div><div class="sw-meta"><span class="sw-name">muted</span><span class="sw-hex">#5B6B68</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#F7F8F8;border-bottom:1px solid #C6D0CD"></div><div class="sw-meta"><span class="sw-name">bg</span><span class="sw-hex">#F7F8F8</span></div></div>
+  </div>
+
+  <p><strong>Burnt orange, not red,</strong> for failures. This is someone's pension — a klaxon-red alert screen makes people close the tab. Attention, not panic.</p>
+
+  <div class="callout warn">
+    <span class="callout-k">Rule you cannot break</span>
+    <p>No saffron/white/green combinations. No Ashoka Chakra. No emblems, no ministry logos, no <code>.gov.in</code>-style visual language. The rules explicitly prohibit presenting this as official or implying government approval, and a tricolour header does exactly that. Our visual identity must be clearly <em>ours</em>.</p>
+  </div>
+
+  <h3>Type</h3>
+  <ul>
+    <li><strong>Body 17px minimum.</strong> Not 14, not 16. This audience includes people reading in bright sunlight on a cheap screen.</li>
+    <li>The verdict number: 40–48px, weight 700. It is the loudest thing in the app by a wide margin.</li>
+    <li>Nothing below 14px anywhere, including disclaimers. Especially disclaimers.</li>
+    <li>Line length capped at ~60 characters. Long lines are where low-confidence readers lose their place.</li>
+  </ul>
+
+  <h3>Non-negotiable build floor</h3>
+  <ul>
+    <li><strong>One primary action per screen.</strong> If a screen has two equally weighted buttons, one of them is wrong.</li>
+    <li>Touch targets 48×48px minimum.</li>
+    <li>Never colour alone for status — always an icon and a word alongside it.</li>
+    <li>Visible keyboard focus rings. Do not remove the outline.</li>
+    <li><code>prefers-reduced-motion</code> respected. Honestly, just ship almost no motion — the one place it earns its keep is the ledger bar filling on the verdict screen, once, on mount.</li>
+    <li>Real semantic HTML: <code>&lt;button&gt;</code> for actions, <code>&lt;h1&gt;</code>–<code>&lt;h3&gt;</code> in order, labels tied to inputs.</li>
+    <li>Total JS under ~150KB gzipped. No component library. Tailwind plus hand-rolled components is faster to write and far lighter than pulling in MUI.</li>
+    <li>Works with JS enabled but on a throttled 3G profile — test it in DevTools before you record the video.</li>
+  </ul>
+
+  <h3>Voice</h3>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Don't write</th><th>Write</th></tr></thead>
+    <tbody>
+      <tr><td>Date of Exit not updated</td><td>Fynd hasn't recorded your last working day</td></tr>
+      <tr><td>Transfer claim rejected</td><td>Your money didn't move. Here's why.</td></tr>
+      <tr><td>Submit Form 13</td><td>Ask EPFO to move this money</td></tr>
+      <tr><td>Pensionable service: 50 months</td><td>4 years 2 months are counting</td></tr>
+      <tr><td>An error occurred</td><td>We couldn't check that. Try again, or here's what to do instead.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ REPO ============ -->
+<section id="repo">
+  <span class="sec-label">Repository</span>
+  <h2>Setup and conventions</h2>
+
+  <h4>Stack</h4>
+  <p>Vite + React + TypeScript + Tailwind + React Router. No backend, no database, no auth. Fixtures in <code>src/data/</code>. State in React only — nothing persisted, which also means nothing to disclose about data storage.</p>
+
+  <pre class="wire">pf-service-check/
+├── README.md              ← problem statement + demo disclosure. Written DUS-101.
+├── src/
+│   ├── types/index.ts     ← the contract. DUS-101.
+│   ├── data/personas.ts   ← fixtures. DUS-102.
+│   ├── lib/service.ts     ← pure calculation. DUS-103.
+│   ├── lib/format.ts      ← paise→₹, months→"4y 2m". DUS-103.
+│   ├── i18n/strings.ts    ← en/hi. DUS-402.
+│   ├── components/        ← shared UI. DUS-104.
+│   └── routes/
+│       ├── Landing.tsx    S1   ├── Verdict.tsx   S3
+│       ├── SignIn.tsx     S2   ├── Fix.tsx       S4
+│       ├── Timeline.tsx   S5   ├── Tracker.tsx   S6
+│       └── About.tsx           ← disclosure page</pre>
+
+  <h4>Conventions</h4>
+  <ul>
+    <li>Branches: <code>feat/</code>, <code>fix/</code>, <code>chore/</code> + short kebab name.</li>
+    <li><code>main</code> is protected. Everything through a PR. Both of you review — even a two-minute skim. It is a scored signal that this was built by a team, and it catches contract drift.</li>
+    <li>Squash merge. Keeps the history readable when a judge opens the repo.</li>
+    <li>Every PR description gets one line: <em>what this does and which screen it serves.</em></li>
+    <li><strong>Never edit <code>types/index.ts</code> without messaging the other person first.</strong> This is the only real coordination risk in the whole build.</li>
+  </ul>
+
+  <div class="callout note">
+    <span class="callout-k">Do this before writing a single component</span>
+    <p>Deploy the empty scaffold to Vercel on DUS-101 and confirm the public URL loads. The single most common way teams lose these things is discovering a deploy problem at 7pm on submission day. Get the URL working while it costs you nothing, then every subsequent merge to <code>main</code> just updates it.</p>
+  </div>
+</section>
+
+<!-- ============ PRs ============ -->
+<section id="backlog">
+  <span class="sec-label">Sprint backlog</span>
+  <h2>Twelve tickets, one sprint</h2>
+  <p class="lede">
+    <span class="own a">Deepak</span> owns the contract, the calculation engine, the shell and the hero screen — the load-bearing pieces.
+    <span class="own b">Tanisha</span> owns fixtures, entry screens, fix content, timeline, disclosure and language — the parallel-safe pieces.
+  </p>
+  <p><strong>Sprint 1 · 26–28 Aug 2026 · 42 points · one branch and one PR per ticket.</strong> Branch names are given on each card. Put the ticket key in the PR title so the repo history reads as a backlog: <code>DUS-201: verdict screen</code>.</p>
+
+  <h3>Epics</h3>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Epic</th><th>Name</th><th>Contains</th><th>Why it exists</th></tr></thead>
+    <tbody>
+      <tr><td class="epic-key">DUS-100</td><td>Foundation &amp; contract</td><td class="mono">101, 102, 103, 104</td><td>Nothing can be built in parallel until these land. This is the whole critical path.</td></tr>
+      <tr><td class="epic-key">DUS-200</td><td>Core diagnostic</td><td class="mono">201, 202</td><td>The two screens the submission is actually judged on.</td></tr>
+      <tr><td class="epic-key">DUS-300</td><td>Supporting journey</td><td class="mono">301, 302, 303</td><td>Makes the journey complete start to finish, which is a scored criterion.</td></tr>
+      <tr><td class="epic-key">DUS-400</td><td>Trust &amp; access</td><td class="mono">401, 402</td><td>Honesty and accessibility are scored separately from the build.</td></tr>
+      <tr><td class="epic-key">DUS-500</td><td>Release readiness</td><td class="mono">501</td><td>The difference between a demo that works on your laptop and one that works for a judge.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Tickets</h3>
+
+  <!-- 101 -->
+  <div class="ticket a">
+    <div class="t-top"><span class="t-key">DUS-101</span><span class="t-type task">Task</span></div>
+    <p class="t-sum">Scaffold project, define data contract, ship deploy pipeline</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-100</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Deepak</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">3</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Highest</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv">—</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">All</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">chore/scaffold-and-contract</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>Stand up Vite + React 18 + TypeScript + Tailwind + React Router with no backend and no state persistence. Write <code>src/types/index.ts</code> exactly as specified in the Data contract section. Create seven empty routes. Write the README with the problem statement and the full demo disclosure. Deploy to Vercel and confirm the public URL loads.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Tanisha can clone, <code>npm i</code>, <code>npm run dev</code> and reach all seven routes with zero setup questions.</li>
+      <li><code>types/index.ts</code> matches the spec field-for-field. No additions, no renames.</li>
+      <li>A public Vercel URL loads the app in a private browser window with no access prompt.</li>
+      <li>Pushing to <code>main</code> triggers a redeploy automatically.</li>
+      <li>README contains the problem statement and every line of the disclosure list.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">Merged, deployed, and the live URL pasted into the team chat.</p>
+  </div>
+
+  <!-- 102 -->
+  <div class="ticket b">
+    <div class="t-top"><span class="t-key">DUS-102</span><span class="t-type task">Task</span></div>
+    <p class="t-sum">Author three synthetic personas</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-100</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Tanisha</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">2</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Highest</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">DUS-101</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">201, 202, 302</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/persona-data</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>Populate <code>src/data/personas.ts</code> with the three scenarios: <strong>priya</strong> (exit date not marked — the demo default), <strong>rahul</strong> (name mismatch, service fully fragmented), <strong>anjali</strong> (all clear). Balances at realistic Indian salary scale. Employer names invented, not real companies.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>All three personas type-check with zero <code>any</code> and zero optional fields left undefined.</li>
+      <li>Every UAN uses an obviously invalid format that could not belong to a real person.</li>
+      <li>priya's arithmetic produces exactly 4y 2m recognised against 6y 4m believed.</li>
+      <li>rahul has at least one job where <code>balanceTransferred</code> is true but <code>serviceRecognised</code> is false — this single row is the app's core argument.</li>
+      <li>No real company names, no real people, no scraped data.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">Deepak can import a persona and get sensible numbers out of the engine without touching the fixtures.</p>
+  </div>
+
+  <!-- 103 -->
+  <div class="ticket a">
+    <div class="t-top"><span class="t-key">DUS-103</span><span class="t-type task">Task</span></div>
+    <p class="t-sum">Service calculation engine and formatters</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-100</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Deepak</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">3</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Highest</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">DUS-101</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">201</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/service-engine</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>Pure functions in <code>lib/service.ts</code> returning a <code>ServiceVerdict</code>: believed months, recognised months, gap, stranded paise, total paise, months to ten, eligibility, failed checks. Plus <code>lib/format.ts</code> for paise → Indian-grouped rupees and months → "4 years 2 months". No React imports in either file.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Given any <code>Persona</code>, returns a complete and correct <code>ServiceVerdict</code>.</li>
+      <li>All money is integer paise end to end. No float arithmetic anywhere.</li>
+      <li>All service is integer months. Year/month display conversion happens only in <code>format.ts</code>.</li>
+      <li>Currency formats with Indian digit grouping (1,84,320 — not 184,320).</li>
+      <li>At least four assertions cover: a clean persona, a gap persona, a current job with <code>toDate: null</code>, and a zero-service edge case.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">Assertions pass, and no UI code needs to do arithmetic of its own.</p>
+  </div>
+
+  <!-- 104 -->
+  <div class="ticket a">
+    <div class="t-top"><span class="t-key">DUS-104</span><span class="t-type task">Task</span></div>
+    <p class="t-sum">Design tokens, app shell and shared components</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-100</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Deepak</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">5</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Highest</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">DUS-101</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">201, 202, 301, 302, 303, 401</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/shell-and-tokens</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>Implement the full token set from the design system document into the Tailwind theme. Build the app shell — header, persistent demo banner, mobile container, sticky action bar — and the shared primitives: <code>Button</code>, <code>StatusRow</code>, <code>LedgerBar</code>, <code>Disclosure</code>, <code>Field</code>.</p>
+    <div class="callout warn" style="margin:14px 0">
+      <span class="callout-k">Highest urgency ticket in the sprint</span>
+      <p>Five of Tanisha's six tickets are blocked until this merges. Land it before lunch on 27 Aug or the parallel plan collapses into a serial one.</p>
+    </div>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Every colour, type size, spacing step and radius from the design system exists as a named Tailwind token. No raw hex in any component.</li>
+      <li><code>LedgerBar</code> accepts recognised months, gap months and a target, and renders counted / not-counted / remaining states correctly.</li>
+      <li><code>StatusRow</code> renders pass and fail states with icon, colour <em>and</em> word — never colour alone.</li>
+      <li>The demo banner is fixed, present on every route, and not dismissible.</li>
+      <li>Layout holds at 320px with no horizontal scroll.</li>
+      <li>Tanisha can build any screen from these primitives without writing a single new style.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">Merged and announced in chat, because it unblocks half the sprint.</p>
+  </div>
+
+  <!-- 201 -->
+  <div class="ticket a">
+    <div class="t-top"><span class="t-key">DUS-201</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">Verdict screen — recognised service against the ten-year threshold</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-200</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Deepak</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">8</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Highest</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">103, 104</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/verdict-screen</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p><em>As someone who has changed jobs, I want to see how many of my years actually count toward a pension, so that I find out now instead of at 58.</em></p>
+    <p>The hero screen. Large recognised-service figure, the ledger bar, the believed-versus-recognised comparison, four condition rows, one sticky primary action.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Recognised service is the largest element on the screen. The balance figure is not shown here at all.</li>
+      <li>The ledger bar shows counted, not-counted and remaining years as three visually distinct states.</li>
+      <li>All four conditions render as full-width rows, minimum 48px tall, each tappable.</li>
+      <li>Failed rows name the responsible employer in plain language, not the EPFO field name.</li>
+      <li>Exactly one primary action, sticky at the bottom on mobile, routing to the correct <code>/fix/:checkId</code>.</li>
+      <li>Member IDs appear only inside a collapsed "Show technical details" disclosure.</li>
+      <li>All three personas render correct and visibly distinct verdicts, including anjali's all-clear.</li>
+      <li>The ledger bar animates its fill once on mount, and does not animate when <code>prefers-reduced-motion</code> is set.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">A screenshot of this screen, with no explanation attached, communicates the entire product.</p>
+  </div>
+
+  <!-- 202 -->
+  <div class="ticket b">
+    <div class="t-top"><span class="t-key">DUS-202</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">Fix screens — one resolution path per failed condition</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-200</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Tanisha</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">5</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Highest</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">DUS-104</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/fix-screen</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p><em>As someone whose transfer silently failed, I want to know the one thing to do about it, so that I do not have to research four possible causes myself.</em></p>
+    <p>Four routes, one per <code>CheckId</code>, plus an all-clear state. Every page follows the same three blocks in the same order: what to do, how long it takes, what to do if it does not work.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>The exit-date page leads with the self-marking route — that a member can record their own last working day on the member portal roughly two months after their final contribution — before mentioning any employer-dependent path.</li>
+      <li>Fallbacks are ordered: self-mark, then written request to the employer, then an EPFiGMS grievance.</li>
+      <li>The first-deposit page delivers an all-clear calmly: nothing is wrong, wait until after your first salary, check again.</li>
+      <li>EPFO terminology appears only in parentheses after the plain-language version, never as the primary label.</li>
+      <li>Every failing check on every persona routes to a page that addresses that specific failure.</li>
+      <li>No page exceeds one screen of scrolling at 360px before the primary action is visible.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">A reader who has never heard of Form 13 knows exactly what to do next.</p>
+  </div>
+
+  <!-- 301 -->
+  <div class="ticket b">
+    <div class="t-top"><span class="t-key">DUS-301</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">Landing, mock sign-in and persona picker</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-300</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Tanisha</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">3</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">High</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">104, 102</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/landing-and-signin</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p><em>As a reviewer with two minutes, I want to reach the demo without credentials or friction, so that I judge the product rather than the login screen.</em></p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Mock credentials are stated on the landing page itself, not only in the submission form.</li>
+      <li>Any six digits are accepted as an OTP, and the screen says so before the user types.</li>
+      <li>The persona picker lets a reviewer switch between all three scenarios in under 20 seconds without signing out.</li>
+      <li>The disclosure banner is visible without scrolling on a 360px screen.</li>
+      <li>First contentful paint under one second on a throttled 3G profile.</li>
+      <li>No hero image, no carousel, no load animation.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">A stranger reaches the verdict screen in three taps, with nothing to read first.</p>
+  </div>
+
+  <!-- 302 -->
+  <div class="ticket b">
+    <div class="t-top"><span class="t-key">DUS-302</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">Employment timeline with separate money and service status</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-300</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Tanisha</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">3</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">High</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">104, 102</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/timeline-screen</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p><em>As someone told that two of my years do not count, I want to see which job they came from, so that I believe the verdict.</em></p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Each job renders two independent statuses: Money and Service.</li>
+      <li>On rahul, at least one row visibly shows money settled while service is not recognised.</li>
+      <li>Employer name is the primary label; member ID sits behind a disclosure.</li>
+      <li>Status is written in plain words, not codes — "these 2 years are not counting".</li>
+      <li>Vertical list on mobile with no horizontal scroll at any width down to 320px.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">The money-fine / service-broken contradiction is legible in a single screenshot.</p>
+  </div>
+
+  <!-- 303 -->
+  <div class="ticket a">
+    <div class="t-top"><span class="t-key">DUS-303</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">Claim tracker with plain-language states</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-300</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Deepak</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">2</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Medium</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">DUS-104</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/tracker-screen</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>Four states — submitted, waiting on your old employer, with the EPFO office, done — each with an expected duration and one line on what to do if it stalls. Includes a static SMS mock demonstrating how this reaches people without smartphones.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>No EPFO status codes appear anywhere in the user-facing text.</li>
+      <li>Every state carries an expected duration.</li>
+      <li>A stall beyond 15 days surfaces the EPFiGMS grievance route.</li>
+      <li>The SMS mock is clearly labelled as a mock and does not imply messages are sent.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">Renders a plausible in-progress claim. <strong>Second on the cut list after DUS-402.</strong></p>
+  </div>
+
+  <!-- 401 -->
+  <div class="ticket b">
+    <div class="t-top"><span class="t-key">DUS-401</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">About page and full disclosure</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-400</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Tanisha</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">2</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">High</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">DUS-104</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/about-and-disclosure</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>Honesty is scored independently. This ticket is cheap points — do not treat it as filler.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Every line from the Honesty section appears: synthetic data, no EPFO connection, no sensitive data collected, nothing stored, not affiliated or endorsed, no government logos.</li>
+      <li>The three out-of-scope items are named explicitly: duplicate UANs, exempted establishments, Annexure K reconciliation.</li>
+      <li>Rules are date-stamped as "as of August 2026" with a pointer to epfindia.gov.in for anything actionable.</li>
+      <li>Reachable in one tap from every screen.</li>
+      <li>No text on this page is smaller than 14px.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">A judge looking for disclosure finds it without hunting.</p>
+  </div>
+
+  <!-- 402 -->
+  <div class="ticket b">
+    <div class="t-top"><span class="t-key">DUS-402</span><span class="t-type story">Story</span></div>
+    <p class="t-sum">Hindi language toggle</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-400</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Tanisha</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">3</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">Low</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">301, 201, 202</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">—</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">feat/hindi-strings</span></div>
+    </div>
+    <p class="t-h">Description</p>
+    <p>EN/HI toggle in the header covering headings, statuses, actions and the verdict line. Long-form fix prose stays English — a half-translated app is worse than an honestly bilingual one.</p>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>Toggle works on landing, verdict and fix screens.</li>
+      <li>Devanagari renders without clipping at every type size, particularly the 44px verdict figure.</li>
+      <li>Switching language does not reset the selected persona or navigate away.</li>
+      <li>Untranslated sections are labelled as English rather than left ambiguous.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod"><strong>First on the cut list.</strong> Drop this without hesitation if 27 Aug ends behind schedule.</p>
+  </div>
+
+  <!-- 501 -->
+  <div class="ticket ab">
+    <div class="t-top"><span class="t-key">DUS-501</span><span class="t-type chore">Chore</span></div>
+    <p class="t-sum">Accessibility, performance and release pass</p>
+    <div class="t-meta">
+      <div class="t-f"><span class="t-fk">Epic</span><span class="t-fv">DUS-500</span></div>
+      <div class="t-f"><span class="t-fk">Assignee</span><span class="t-fv">Both, paired</span></div>
+      <div class="t-f"><span class="t-fk">Points</span><span class="t-fv">3</span></div>
+      <div class="t-f"><span class="t-fk">Priority</span><span class="t-fv">High</span></div>
+      <div class="t-f"><span class="t-fk">Blocked by</span><span class="t-fv mono">All</span></div>
+      <div class="t-f"><span class="t-fk">Blocks</span><span class="t-fv mono">Submission</span></div>
+      <div class="t-f"><span class="t-fk">Branch</span><span class="t-fv mono">chore/polish-a11y-perf</span></div>
+    </div>
+    <p class="t-h">Acceptance criteria</p>
+    <ol class="ac">
+      <li>The full journey can be completed using only a keyboard, with a visible focus ring at every step.</li>
+      <li>Heading order is correct on every route, with exactly one <code>h1</code> per screen.</li>
+      <li>All text meets 4.5:1 contrast; large text meets 3:1.</li>
+      <li>The journey completes on a throttled 3G profile without any screen appearing broken mid-load.</li>
+      <li>No horizontal scroll at 320px on any route.</li>
+      <li>Total JS under 150KB gzipped.</li>
+      <li>Zero console errors.</li>
+      <li>The live URL is verified in a private window on mobile data by both people, on their own phones.</li>
+    </ol>
+    <p class="t-h">Definition of done</p>
+    <p class="dod">Both of you have independently completed the journey on a phone you did not build it on.</p>
+  </div>
+
+  <div class="callout">
+    <span class="callout-k">Why the split is shaped this way</span>
+    <p>Once DUS-104 lands, nothing on Tanisha's list depends on anything else of hers, and nothing of Deepak's blocks her. The only genuine serialisation is <code>101 → 103/104 → everything</code>. That first ninety minutes is the whole critical path — protect it, and the remaining two days are parallel.</p>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline">
+  <span class="sec-label">Schedule</span>
+  <h2>You have roughly two working days</h2>
+
+  <h3>Tonight — Tue 26 Aug</h3>
+  <div class="slotrow"><span class="slot-time">First 30m</span><div class="slot-body"><p>Read this document together. Agree the split out loud. Create the repo, add Tanisha as a collaborator, protect <code>main</code>.</p></div></div>
+  <div class="slotrow"><span class="slot-time">+90m</span><div class="slot-body"><p><span class="own a">A</span> DUS-101 — scaffold, types, routes, README, <strong>Vercel live</strong>. <span class="own b">Tanisha</span> reads the types as they land and starts drafting persona numbers on paper.</p></div></div>
+  <div class="slotrow"><span class="slot-time">Rest of night</span><div class="slot-body"><p><span class="own a">A</span> DUS-103 engine. <span class="own b">B</span> DUS-102 personas. Both merged before sleep.</p></div></div>
+
+  <h3>Wed 27 Aug — the build day</h3>
+  <div class="slotrow"><span class="slot-time">Morning</span><div class="slot-body"><p><span class="own a">A</span> DUS-104 shell and tokens — <strong>land this before lunch, Tanisha is blocked until it does.</strong> <span class="own b">B</span> writes all fix-page copy in a plain markdown file while waiting; it drops straight into DUS-202 later.</p></div></div>
+  <div class="slotrow"><span class="slot-time">Afternoon</span><div class="slot-body"><p><span class="own a">A</span> DUS-201 verdict screen. <span class="own b">B</span> DUS-301 landing and sign-in.</p></div></div>
+  <div class="slotrow"><span class="slot-time">Evening</span><div class="slot-body"><p><span class="own a">A</span> DUS-303 tracker. <span class="own b">B</span> DUS-202 fix screens.</p></div></div>
+  <div class="slotrow"><span class="slot-time">Before sleep</span><div class="slot-body"><p><strong>Hard gate:</strong> the full journey S1→S6 must run end to end on the live URL, ugly but working. If it doesn't, cut from the cut list tonight — not tomorrow.</p></div></div>
+
+  <h3>Thu 28 Aug — deadline 20:00</h3>
+  <div class="slotrow"><span class="slot-time">Morning</span><div class="slot-body"><p><span class="own b">B</span> DUS-302 timeline, DUS-401 about. <span class="own a">A</span> polishes the verdict screen — this is the screen that gets screenshotted, give it the extra hour.</p></div></div>
+  <div class="slotrow"><span class="slot-time">13:00</span><div class="slot-body"><p>DUS-501 polish pass, together. Hindi only if genuinely comfortable.</p></div></div>
+  <div class="slotrow"><span class="slot-time">15:00</span><div class="slot-body"><p><strong>Feature freeze.</strong> No new code after this except crash fixes. Write the 250-word summary now, while the build is fresh.</p></div></div>
+  <div class="slotrow"><span class="slot-time">16:00</span><div class="slot-body"><p>Record the video. Rehearse twice, record three takes, keep the second. Recording is always slower than you think.</p></div></div>
+  <div class="slotrow"><span class="slot-time">18:00</span><div class="slot-body"><p>Submit. Both of you open the live link in a private window on mobile data first. Exchange registered emails and confirm both forms are in.</p></div></div>
+  <div class="slotrow"><span class="slot-time">20:00</span><div class="slot-body"><p>Form closes. No grace period.</p></div></div>
+
+  <div class="callout warn">
+    <span class="callout-k">The two-hour buffer is not optional</span>
+    <p>Submitting at 18:00 for a 20:00 deadline is the plan, not a stretch goal. Every team that misses these deadlines was "fifteen minutes away" at 19:45.</p>
+  </div>
+</section>
+
+<!-- ============ SUBMISSION ============ -->
+<section id="submission">
+  <span class="sec-label">Submission</span>
+  <h2>Four deliverables</h2>
+
+  <ul class="check">
+    <li><strong>Live public link</strong> — opens with no access request. Verify in a private window, on mobile data, on both your phones.</li>
+    <li><strong>Mock credentials stated on the landing page itself</strong>, not just in the form. Any UAN, any six digits. A judge who can't get past the login screen scores you on the login screen.</li>
+    <li><strong>Video, 2 minutes maximum.</strong></li>
+    <li><strong>Summary under 250 words.</strong></li>
+    <li><strong>Each other's registered email</strong> — both of you register, both of you submit, each naming the other. Confirm this by message, don't assume.</li>
+  </ul>
+
+  <h3>Video — minute one, the citizen demo</h3>
+  <p>One person, one continuous screen recording, no slides.</p>
+  <ol>
+    <li><strong>0:00–0:12</strong> — the hook, spoken over the landing page: <em>"India automated PF transfers in July. It only works if four hidden conditions are true. If one fails, nothing moves and nobody tells you."</em></li>
+    <li><strong>0:12–0:25</strong> — sign in as Priya. Say clearly that this is mock data.</li>
+    <li><strong>0:25–0:50</strong> — the verdict. Let the number sit on screen. <em>"Four years two months recognised. She thinks she has six years four months. You need ten for a pension for life."</em></li>
+    <li><strong>0:50–1:00</strong> — the fix, and the payoff line: <em>"Her old employer never marked her last working day. She doesn't need them — she can do it herself, and almost nobody knows that."</em></li>
+  </ol>
+
+  <h3>Video — minute two, how and why</h3>
+  <p>Second person speaks. Both teammates presenting is allowed and reads well.</p>
+  <ol>
+    <li><strong>No new data.</strong> EPFO already holds every fact on this screen. We're proposing a view over data they have, authorised exactly as it is today.</li>
+    <li><strong>A process change, not a skin.</strong> Checking the four conditions <em>before</em> a claim is filed, rather than rejecting it weeks after, removes an entire failure loop. The UI is just how you see it.</li>
+    <li><strong>Reaching people without smartphones.</strong> SMS at each state, no app install, ~150KB, works on 3G.</li>
+    <li><strong>Honesty, said out loud:</strong> synthetic data, no EPFO connection, and three things we deliberately did not build — duplicate UANs, private PF trusts, Annexure K reconciliation.</li>
+  </ol>
+
+  <h3>Summary — 236 words, edit freely</h3>
+  <div class="callout">
+    <p><strong>Dus Saal — check whether your PF years actually count.</strong></p>
+    <p>Since July 2026, EPFO transfers provident fund balances automatically when you change jobs. It works only if four conditions are simultaneously true: Aadhaar linked to your UAN, personal details matching across employers, your previous employer having recorded your date of exit, and your new employer having made a first deposit. If one fails, the transfer silently does not happen. There is no error and no notification.</p>
+    <p>This matters more than the money. Ten years of recognised service are required for a lifelong monthly EPS pension. Service history can remain unmerged even when the balance is correct — so the portal shows a healthy figure while pension eligibility is quietly broken. Members discover this decades later, when it is too late to fix.</p>
+    <p>Dus Saal shows the number the portal never shows: recognised service against the ten years you need. It then identifies which of the four conditions failed and gives the specific next step — including that you can mark your own date of exit if a former employer never did, which very few members know.</p>
+    <p>It is better because it converts a silent failure into a visible one, and checks before a claim is filed rather than rejecting it afterwards.</p>
+    <p>Fully synthetic data. No connection to any EPFO system. Not affiliated with or endorsed by EPFO or any government body.</p>
+  </div>
+</section>
+
+<!-- ============ HONESTY ============ -->
+<section id="honesty">
+  <span class="sec-label">Honesty</span>
+  <h2>Disclosure is a scored criterion — make it loud</h2>
+  <p class="lede">Judges are explicitly scoring whether limitations, mock data and dependencies are clearly disclosed. Most teams bury this in a footer. Put it where it cannot be missed and you gain points that cost you nothing to earn.</p>
+
+  <h4>Persistent, every screen</h4>
+  <p>A thin banner at the top: <em>"Demo — mock data. Not connected to any EPFO system."</em> It stays. It does not dismiss.</p>
+
+  <h4>About page, in full</h4>
+  <ul>
+    <li>All names, UANs, employers, balances and dates are invented. No real person's data appears anywhere.</li>
+    <li>No live government system is contacted, queried, or scraped. No APIs, documented or otherwise.</li>
+    <li>No Aadhaar, PAN, password, OTP or payment data is collected. The OTP field accepts any six digits and validates nothing.</li>
+    <li>Nothing is stored. No database, no analytics, no cookies. State lives in memory for the length of the session.</li>
+    <li>Not affiliated with, endorsed by, or connected to EPFO, the Ministry of Labour and Employment, or any government body. No government logos or emblems are used.</li>
+    <li>The four-condition logic reflects publicly reported EPFO rules as of August 2026. Rules changed substantially this year and continue to change; verify anything actionable at epfindia.gov.in.</li>
+    <li>Out of scope: duplicate UANs, exempted establishments with private PF trusts, Annexure K reconciliation, and any real claim filing.</li>
+  </ul>
+
+  <div class="callout note">
+    <span class="callout-k">Say this in the video too</span>
+    <p>Ten seconds of spoken disclosure is worth more than a paragraph nobody reads. It also signals you understood the brief rather than skimmed it.</p>
+  </div>
+</section>
+
+<p class="footer-note">
+  DUS SAAL — BUILD PLAN v1 · prepared 26 Aug 2026<br>
+  Owner A: Deepak · Owner B: Tanisha<br><br>
+  Rules and figures referenced here reflect public reporting as of August 2026 and were changing rapidly through the year. Verify before stating anything as fact in the submission.<br>
+  This plan describes a prototype using entirely synthetic data with no connection to any government system.
+</p>
+
+</div>
+</body>
+</html>

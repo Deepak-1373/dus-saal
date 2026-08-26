@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dus Saal — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;600;700&family=Anek+Latin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========== DOCUMENT CHROME (matches the build plan) ========== */
+:root{
+  --paper:#EDF0EF;--card:#F8FAF9;--ink:#12181F;--ink-soft:#4A575C;--ink-faint:#7A8689;
+  --rule:#C6D0CD;--rule-soft:#DBE2E0;--a:#2C3E8F;--b:#B33A28;--pass:#1F6E5C;
+  /* app tokens, used inside mockups */
+  --app-ink:#1A1F3A;--app-ink2:#4A4F66;--app-ink3:#666A7D;
+  --app-indigo:#2E3A8C;--app-indigo-d:#232C6B;
+  --app-counted:#2E6B52;--app-counted-bg:#E8F0EB;
+  --app-uncounted:#A8541B;--app-uncounted-bg:#FBEFE4;
+  --app-alert:#9E2B20;
+  --app-paper:#F5F6F4;--app-card:#FFFFFF;--app-rule:#DEDFDA;--app-rule2:#EBECE8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"IBM Plex Sans",sans-serif;font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 120px}
+.masthead{border-bottom:3px solid var(--ink);padding:44px 0 22px}
+.stamp-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.stamp{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid currentColor;border-radius:2px;padding:4px 9px;line-height:1.2}
+.stamp.red{color:var(--b)}.stamp.blue{color:var(--a)}.stamp.plain{color:var(--ink-soft)}
+h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:clamp(44px,8vw,80px);line-height:.92;letter-spacing:-.02em;margin:0 0 6px;text-transform:uppercase}
+.subtitle{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.06em;color:var(--ink-soft);margin:0}
+.tagline{font-size:20px;line-height:1.4;max-width:58ch;margin:18px 0 0}
+section{padding:52px 0;border-bottom:1px solid var(--rule)}
+.sec-label{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px;display:block}
+h2{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:clamp(28px,4.5vw,40px);line-height:1.04;margin:0 0 20px;text-transform:uppercase}
+h3{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:21px;margin:36px 0 10px}
+h4{font-size:13px;font-weight:600;margin:24px 0 6px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0 0 14px;max-width:72ch}
+ul,ol{margin:0 0 14px;padding-left:20px;max-width:72ch}li{margin-bottom:7px}
+code{font-family:"IBM Plex Mono",monospace;font-size:.88em;background:#E1E7E5;padding:1px 5px;border-radius:2px}
+.lede{font-size:19px;line-height:1.5;max-width:64ch}
+.callout{border-left:3px solid var(--ink);padding:2px 0 2px 18px;margin:22px 0;max-width:72ch}
+.callout.warn{border-left-color:var(--b)}.callout.note{border-left-color:var(--a)}
+.callout p:last-child{margin-bottom:0}
+.callout-k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:5px}
+.tbl-scroll{overflow-x:auto;margin:20px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:600px}
+th{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;text-align:left;color:var(--ink-faint);border-bottom:1.5px solid var(--ink);padding:0 12px 8px 0}
+td{padding:12px 12px 12px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.5}
+td.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+pre.code{font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.6;background:#11181D;color:#D6E0DC;border-radius:3px;padding:20px;overflow-x:auto;margin:16px 0}
+pre.code .c{color:#6E8079}pre.code .k{color:#8FB8FF}pre.code .s{color:#E0A97B}
+.footer-note{margin-top:56px;padding-top:26px;border-top:3px solid var(--ink);font-family:"IBM Plex Mono",monospace;font-size:11.5px;line-height:1.7;color:var(--ink-soft)}
+
+/* ========== TOKEN DISPLAY ========== */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;margin:18px 0}
+.sw{border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:#fff}
+.sw-chip{height:64px;display:flex;align-items:flex-end;padding:7px 9px}
+.sw-chip span{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600}
+.sw-meta{padding:8px 10px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;line-height:1.55}
+.sw-name{display:block;font-weight:600;color:var(--ink)}
+.sw-use{display:block;color:var(--ink-faint);font-family:"IBM Plex Sans",sans-serif;font-size:11px;margin-top:3px}
+
+.spec-row{display:flex;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--rule-soft);flex-wrap:wrap}
+.spec-meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-faint);min-width:190px;letter-spacing:.05em}
+.spec-demo{flex:1;min-width:220px;font-family:"Anek Latin","Anek Devanagari",sans-serif;color:var(--app-ink)}
+
+/* ========== MOCKUPS ========== */
+.mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:32px;margin:26px 0}
+.device{max-width:392px}
+.device-cap{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:9px;display:block}
+.device-note{font-family:"IBM Plex Sans",sans-serif;font-size:13px;color:var(--ink-soft);margin:10px 0 0;line-height:1.5;text-transform:none;letter-spacing:0}
+.screen{
+  width:360px;border:1px solid #B9C2BF;border-radius:14px;overflow:hidden;
+  background:var(--app-paper);box-shadow:0 2px 14px rgba(18,24,31,.09);
+  font-family:"Anek Latin","Anek Devanagari",-apple-system,sans-serif;
+  color:var(--app-ink);font-size:17px;line-height:1.55;position:relative;
+}
+.screen.wide{width:100%;max-width:1000px}
+.mk-banner{background:#2A2F4A;color:#EDEEF4;font-size:13px;padding:8px 14px;display:flex;gap:7px;align-items:center;line-height:1.35}
+.mk-banner b{font-weight:600}
+.mk-hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid var(--app-rule);background:var(--app-card)}
+.mk-logo{font-weight:800;font-size:18px;letter-spacing:-.01em}
+.mk-lang{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--app-indigo);border:1.5px solid var(--app-indigo);border-radius:4px;padding:3px 8px}
+.mk-body{padding:22px 18px 20px}
+.mk-body.tight{padding:18px 18px 16px}
+.mk-eyebrow{font-size:14px;font-weight:600;color:var(--app-ink3);letter-spacing:.04em;text-transform:uppercase;margin:0 0 6px}
+.mk-h1{font-size:27px;font-weight:700;line-height:1.16;margin:0 0 12px;letter-spacing:-.01em}
+.mk-p{font-size:16px;line-height:1.55;color:var(--app-ink2);margin:0 0 14px}
+.mk-p.sm{font-size:14px}
+.mk-big{font-size:44px;font-weight:800;line-height:1;letter-spacing:-.025em;margin:0 0 8px}
+.mk-sub{font-size:16px;color:var(--app-ink2);margin:0 0 18px;line-height:1.45}
+.mk-btn{
+  display:block;width:100%;background:var(--app-indigo);color:#fff;border:none;border-radius:6px;
+  padding:15px 16px;font-family:inherit;font-size:17px;font-weight:600;text-align:center;line-height:1.3;
+}
+.mk-btn.ghost{background:transparent;color:var(--app-indigo);border:1.5px solid var(--app-indigo)}
+.mk-btn.link{background:none;color:var(--app-indigo);text-decoration:underline;padding:12px 0;font-weight:500;font-size:16px}
+.mk-sticky{padding:14px 18px 18px;border-top:1px solid var(--app-rule);background:var(--app-card)}
+.mk-fine{font-size:14px;color:var(--app-ink3);line-height:1.5;margin:12px 0 0}
+
+/* ledger bar — the signature */
+.mk-ledger{margin:6px 0 14px}
+.mk-slots{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.mk-slot{height:46px;border-radius:2px;border:1.5px solid var(--app-rule);background:transparent}
+.mk-slot.on{background:var(--app-counted);border-color:var(--app-counted)}
+.mk-slot.part{background:linear-gradient(to top,var(--app-counted) 17%,transparent 17%);border-color:var(--app-counted)}
+.mk-slot.gap{border-color:var(--app-uncounted);border-style:dashed;background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(168,84,27,.18) 3px,rgba(168,84,27,.18) 7px)}
+.mk-scale{display:flex;justify-content:space-between;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--app-ink3);margin-top:6px}
+.mk-key{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--app-ink2);margin-top:10px}
+.mk-key i{width:11px;height:11px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:-1px}
+
+.mk-compare{background:var(--app-uncounted-bg);border-radius:6px;padding:13px 15px;font-size:15px;line-height:1.5;color:#7C3D12;margin:4px 0 0}
+.mk-compare b{font-weight:700}
+
+.mk-sec{border-top:1px solid var(--app-rule);padding:16px 18px 4px;background:var(--app-card)}
+.mk-seclbl{font-size:14px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--app-ink3);margin:0 0 6px}
+.mk-row{display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--app-rule2);align-items:flex-start;min-height:48px}
+.mk-row:last-child{border-bottom:none}
+.mk-ic{width:21px;height:21px;border-radius:50%;flex:0 0 21px;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;line-height:1}
+.mk-ic.ok{background:var(--app-counted)}
+.mk-ic.no{background:var(--app-uncounted)}
+.mk-rt{flex:1;min-width:0}
+.mk-rl{font-size:16px;font-weight:600;line-height:1.35;display:block}
+.mk-rd{font-size:14px;color:var(--app-ink2);line-height:1.45;display:block;margin-top:2px}
+.mk-rs{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;display:block;margin-top:3px}
+.mk-rs.ok{color:var(--app-counted)}.mk-rs.no{color:var(--app-uncounted)}
+.mk-chev{color:var(--app-ink3);font-size:18px;line-height:1;margin-top:3px}
+
+.mk-field{margin:0 0 16px}
+.mk-lbl{display:block;font-size:15px;font-weight:600;margin:0 0 5px}
+.mk-inp{width:100%;border:1.5px solid #B7BAC6;border-radius:5px;padding:13px 13px;font-family:inherit;font-size:17px;background:var(--app-card);color:var(--app-ink)}
+.mk-inp.focus{border-color:var(--app-indigo);box-shadow:0 0 0 3px rgba(46,58,140,.22)}
+.mk-hint{font-size:14px;color:var(--app-ink3);margin:5px 0 0;line-height:1.45}
+
+.mk-div{display:flex;align-items:center;gap:11px;margin:20px 0 14px;font-size:14px;color:var(--app-ink3);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.mk-div::before,.mk-div::after{content:"";flex:1;height:1px;background:var(--app-rule)}
+.mk-persona{border:1.5px solid var(--app-rule);border-radius:6px;padding:12px 14px;margin-bottom:9px;background:var(--app-card);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.mk-persona.sel{border-color:var(--app-indigo);background:#F1F2F9}
+.mk-pn{font-size:16px;font-weight:600;display:block}
+.mk-pd{font-size:14px;color:var(--app-ink2);display:block;margin-top:1px}
+
+.mk-job{background:var(--app-card);border:1px solid var(--app-rule);border-radius:6px;padding:14px 15px;margin-bottom:11px}
+.mk-jt{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:3px}
+.mk-jn{font-size:17px;font-weight:600}
+.mk-jd{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--app-ink3);white-space:nowrap}
+.mk-pills{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+.mk-pill{font-size:13.5px;font-weight:600;padding:5px 10px;border-radius:4px;line-height:1.3}
+.mk-pill.ok{background:var(--app-counted-bg);color:#245542}
+.mk-pill.no{background:var(--app-uncounted-bg);color:#7C3D12}
+
+.mk-block{background:var(--app-card);border:1px solid var(--app-rule);border-radius:6px;padding:15px 16px;margin-bottom:12px}
+.mk-bh{font-size:14px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--app-ink3);margin:0 0 7px}
+.mk-flag{background:#EEF0F8;border-left:4px solid var(--app-indigo);border-radius:0 6px 6px 0;padding:14px 16px;margin:0 0 16px}
+.mk-flag p{margin:0;font-size:16px;line-height:1.5}
+.mk-flag b{font-weight:700}
+
+.mk-step{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--app-rule2)}
+.mk-step:last-child{border-bottom:none}
+.mk-dot{width:13px;height:13px;border-radius:50%;border:2.5px solid var(--app-rule);flex:0 0 13px;margin-top:5px;background:var(--app-card)}
+.mk-dot.done{background:var(--app-counted);border-color:var(--app-counted)}
+.mk-dot.now{border-color:var(--app-indigo);background:var(--app-indigo);box-shadow:0 0 0 3px rgba(46,58,140,.2)}
+.mk-st{font-size:16px;font-weight:600;display:block;line-height:1.35}
+.mk-sd{font-size:14px;color:var(--app-ink2);display:block;margin-top:2px;line-height:1.45}
+.mk-sms{background:#E9EAE6;border-radius:6px;padding:12px 14px;font-size:14.5px;line-height:1.5;color:var(--app-ink2);margin-top:14px}
+.mk-smslbl{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--app-ink3);display:block;margin-bottom:5px}
+
+/* desktop mock */
+.mk-two{display:grid;grid-template-columns:1.15fr 1fr;gap:0}
+.mk-two > div:first-child{padding:30px 30px 26px;border-right:1px solid var(--app-rule)}
+.mk-two > div:last-child{padding:30px 30px 26px;background:var(--app-card)}
+
+@media(max-width:760px){
+  .wrap{padding:0 18px 80px}
+  .mk-grid{grid-template-columns:1fr}
+  .screen{width:100%;max-width:360px}
+  .mk-two{grid-template-columns:1fr}
+  .mk-two > div:first-child{border-right:none;border-bottom:1px solid var(--app-rule)}
+}
+@media print{
+  body{background:#fff;font-size:10.5pt}
+  .wrap{max-width:none;padding:0}
+  .device,.screen,table,.swatches,pre{page-break-inside:avoid}
+  h2,h3{page-break-after:avoid}
+  pre.code{background:#F2F4F3;color:#12181F;border:1px solid #C6D0CD}
+  pre.code .c{color:#6B7A75}pre.code .k{color:#2C3E8F}pre.code .s{color:#8A5A2B}
+  .mk-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="stamp-row">
+    <span class="stamp blue">Companion to the build plan</span>
+    <span class="stamp plain">Implement in DUS-104</span>
+    <span class="stamp red">Mobile-first · 360px</span>
+  </div>
+  <p class="subtitle">DESIGN SYSTEM — v1</p>
+  <h1>Dus Saal</h1>
+  <p class="tagline">Every token, component and screen. Build from this file, not from taste.</p>
+</header>
+
+<!-- ============ DIRECTION ============ -->
+<section>
+  <span class="sec-label">Direction</span>
+  <h2>A record, not a dashboard</h2>
+
+  <p class="lede">The person reading this app has just been told something unsettling about their retirement. Two failure modes to design against: looking like a government form (which the rules forbid us from implying) and looking like a growth-stage fintech app (which nobody trusts with a pension).</p>
+
+  <p>So the direction is <strong>a service record that speaks plainly</strong>. Its ancestor is a passbook — a ledger of periods that either count or don't — but warmed up, set in a typeface built for Indian languages, and written the way a person would explain it to a friend.</p>
+
+  <h3>Three decisions and why</h3>
+
+  <h4>Indigo, not government blue or fintech teal</h4>
+  <p>Indigo carries authority and a long Indian association with ink and dye, without borrowing institutional colour language we are explicitly not entitled to. It is unmistakably not a <code>.gov.in</code> palette, and unmistakably not a neobank one either.</p>
+
+  <h4>Ochre for "not counting", never red</h4>
+  <p>Years that didn't count are <em>missing</em>, not <em>dangerous</em>. Burnt ochre reads as incomplete and warm. A klaxon red on a page about someone's pension makes people close the tab, and closing the tab is the actual failure state we are designing against. True alert red exists in the palette and is used once, for "you will not qualify" — nowhere else.</p>
+
+  <h4>Anek, a typeface built for this exact problem</h4>
+  <p>Anek was designed for Indian scripts, and Anek Latin and Anek Devanagari are metrically companionable. We ship an EN/HI toggle, so a family where both scripts were drawn together is a functional choice, not a stylistic one. It also has genuine character at display sizes, which the verdict number needs.</p>
+
+  <h3>The signature: the ten-year ledger</h3>
+  <p>Ten slots, one per year. Solid = counting. Hatched = worked, but not recognised. Empty = still ahead of you. It appears once, on the verdict screen, above everything else.</p>
+  <p>This is the only place the design is allowed to be bold. Everything else stays quiet so this reads. It is also the thing that will be screenshotted, so it carries the whole product in one image — which is exactly what you want from a two-minute video.</p>
+</section>
+
+<!-- ============ COLOUR ============ -->
+<section>
+  <span class="sec-label">Colour</span>
+  <h2>Eleven tokens. No others.</h2>
+
+  <h3>Core</h3>
+  <div class="swatches">
+    <div class="sw"><div class="sw-chip" style="background:#1A1F3A"><span style="color:#fff">14.89:1</span></div><div class="sw-meta"><span class="sw-name">ink · #1A1F3A</span><span class="sw-use">Headings, primary text, the verdict number</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#4A4F66"><span style="color:#fff">7.45:1</span></div><div class="sw-meta"><span class="sw-name">ink-2 · #4A4F66</span><span class="sw-use">Body copy, supporting text</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#666A7D"><span style="color:#fff">4.94:1</span></div><div class="sw-meta"><span class="sw-name">ink-3 · #666A7D</span><span class="sw-use">Labels, hints, metadata</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#2E3A8C"><span style="color:#fff">10.00:1</span></div><div class="sw-meta"><span class="sw-name">indigo · #2E3A8C</span><span class="sw-use">Primary action, links, focus ring</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#232C6B"><span style="color:#fff">pressed</span></div><div class="sw-meta"><span class="sw-name">indigo-dark · #232C6B</span><span class="sw-use">Hover and active only</span></div></div>
+  </div>
+
+  <h3>Status</h3>
+  <div class="swatches">
+    <div class="sw"><div class="sw-chip" style="background:#2E6B52"><span style="color:#fff">6.29:1</span></div><div class="sw-meta"><span class="sw-name">counted · #2E6B52</span><span class="sw-use">Years that count, conditions that pass</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#E8F0EB"><span style="color:#2E6B52">5.42:1</span></div><div class="sw-meta"><span class="sw-name">counted-bg · #E8F0EB</span><span class="sw-use">Pass pill background</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#A8541B"><span style="color:#fff">5.32:1</span></div><div class="sw-meta"><span class="sw-name">uncounted · #A8541B</span><span class="sw-use">Years not counting, failed conditions</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#FBEFE4"><span style="color:#A8541B">4.70:1</span></div><div class="sw-meta"><span class="sw-name">uncounted-bg · #FBEFE4</span><span class="sw-use">Fail pill background</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#9E2B20"><span style="color:#fff">7.45:1</span></div><div class="sw-meta"><span class="sw-name">alert · #9E2B20</span><span class="sw-use">Once. "You will not qualify." Nowhere else.</span></div></div>
+  </div>
+
+  <h3>Surface</h3>
+  <div class="swatches">
+    <div class="sw"><div class="sw-chip" style="background:#F5F6F4;border-bottom:1px solid #DEDFDA"></div><div class="sw-meta"><span class="sw-name">paper · #F5F6F4</span><span class="sw-use">App background</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#FFFFFF;border-bottom:1px solid #DEDFDA"></div><div class="sw-meta"><span class="sw-name">card · #FFFFFF</span><span class="sw-use">Raised surfaces, header, sticky bar</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#DEDFDA"></div><div class="sw-meta"><span class="sw-name">rule · #DEDFDA</span><span class="sw-use">Borders, dividers</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#EBECE8"></div><div class="sw-meta"><span class="sw-name">rule-2 · #EBECE8</span><span class="sw-use">Internal list separators</span></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#2A2F4A"><span style="color:#EDEEF4">banner</span></div><div class="sw-meta"><span class="sw-name">banner · #2A2F4A</span><span class="sw-use">Persistent demo disclosure only</span></div></div>
+  </div>
+
+  <p>Every ratio above is measured, not estimated. All pass WCAG AA; most pass AAA. If you add a colour, measure it before you commit it.</p>
+
+  <div class="callout warn">
+    <span class="callout-k">Hard prohibitions</span>
+    <p>No saffron / white / green together. No Ashoka Chakra, no national emblem, no ministry marks, no <code>.gov.in</code> visual language. The rules forbid presenting this as official or implying endorsement, and a tricolour header does precisely that. Also: never communicate status through colour alone — every state needs an icon and a word beside it.</p>
+  </div>
+</section>
+
+<!-- ============ TYPE ============ -->
+<section>
+  <span class="sec-label">Typography</span>
+  <h2>Anek Latin · Anek Devanagari · IBM Plex Mono</h2>
+
+  <p class="lede">Body starts at 17px and nothing anywhere goes below 14px — including disclaimers, especially disclaimers. The audience includes people reading on cheap screens in daylight.</p>
+
+  <div class="spec-row"><span class="spec-meta">display-xl · 44 / 1.0 / 800 / -.025em</span><span class="spec-demo" style="font-size:44px;font-weight:800;line-height:1;letter-spacing:-.025em">4 years 2 months</span></div>
+  <div class="spec-row"><span class="spec-meta">display-l · 27 / 1.16 / 700</span><span class="spec-demo" style="font-size:27px;font-weight:700;line-height:1.16">Your years may not be counting</span></div>
+  <div class="spec-row"><span class="spec-meta">title · 20 / 1.3 / 600</span><span class="spec-demo" style="font-size:20px;font-weight:600">What you should do next</span></div>
+  <div class="spec-row"><span class="spec-meta">body-l · 18 / 1.5 / 400</span><span class="spec-demo" style="font-size:18px;line-height:1.5">You need ten years for a monthly pension.</span></div>
+  <div class="spec-row"><span class="spec-meta">body · 17 / 1.55 / 400 — BASE</span><span class="spec-demo" style="font-size:17px;line-height:1.55">Fynd Technologies has not recorded your last working day.</span></div>
+  <div class="spec-row"><span class="spec-meta">body-s · 15 / 1.5 / 400</span><span class="spec-demo" style="font-size:15px;line-height:1.5">Usually takes 7 to 30 days once submitted.</span></div>
+  <div class="spec-row"><span class="spec-meta">label · 14 / 1.4 / 600 / .07em / upper</span><span class="spec-demo" style="font-size:14px;font-weight:600;letter-spacing:.07em;text-transform:uppercase">Why this happened</span></div>
+  <div class="spec-row"><span class="spec-meta">caption · 14 / 1.5 / 400 — FLOOR</span><span class="spec-demo" style="font-size:14px;line-height:1.5;color:#666A7D">Demo data. Not connected to any EPFO system.</span></div>
+  <div class="spec-row"><span class="spec-meta">data · 14 / 1.4 / 400 / Plex Mono</span><span class="spec-demo" style="font-family:'IBM Plex Mono',monospace;font-size:14px">MHBAN00123450000456 · 2021-04 → 2023-08</span></div>
+  <div class="spec-row"><span class="spec-meta">Devanagari · 27 / 1.3 / 700</span><span class="spec-demo" style="font-family:'Anek Devanagari',sans-serif;font-size:27px;font-weight:700;line-height:1.3">आपके साल गिने नहीं जा रहे</span></div>
+  <div class="spec-row"><span class="spec-meta">Devanagari body · 17 / 1.6 / 400</span><span class="spec-demo" style="font-family:'Anek Devanagari',sans-serif;font-size:17px;line-height:1.6">पेंशन के लिए दस साल चाहिए।</span></div>
+
+  <h3>Rules</h3>
+  <ul>
+    <li><strong>Measure caps at 60 characters.</strong> Long lines are where less-confident readers lose their place mid-sentence.</li>
+    <li><strong>Devanagari needs more leading.</strong> Use 1.6 minimum where Latin uses 1.55, and test the 44px verdict figure for clipped matras before shipping DUS-402.</li>
+    <li><strong>Mono is for data only</strong> — member IDs, dates, reference numbers. Never for prose, never for buttons.</li>
+    <li><strong>One <code>h1</code> per screen</strong>, headings in order, no skipping levels for visual effect.</li>
+  </ul>
+
+  <div class="callout note">
+    <span class="callout-k">Performance — this matters on 3G</span>
+    <p>Two families plus a mono is heavy. Preload only the weights actually used (Anek Latin 400/600/800, Devanagari 400/700, Plex Mono 400), set <code>font-display:swap</code>, and load Devanagari <em>only</em> when Hindi is selected. Give the fallback stack a matched size-adjust so the swap doesn't reflow the verdict number. Budget: fonts under 90KB total.</p>
+  </div>
+</section>
+
+<!-- ============ SPACE ============ -->
+<section>
+  <span class="sec-label">Space, shape, elevation</span>
+  <h2>Four-point scale</h2>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1 / 2 / 3</td><td class="mono">4 / 8 / 12px</td><td>Inside components — icon gaps, pill padding</td></tr>
+      <tr><td class="mono">4 / 5</td><td class="mono">16 / 20px</td><td>Screen gutter (18px on mobile), card padding</td></tr>
+      <tr><td class="mono">6 / 8</td><td class="mono">24 / 32px</td><td>Between blocks in a section</td></tr>
+      <tr><td class="mono">10 / 14</td><td class="mono">40 / 56px</td><td>Between major sections</td></tr>
+      <tr><td class="mono">radius-sm</td><td class="mono">2px</td><td>Ledger slots, pills</td></tr>
+      <tr><td class="mono">radius</td><td class="mono">6px</td><td>Cards, buttons, inputs</td></tr>
+      <tr><td class="mono">radius-lg</td><td class="mono">14px</td><td>Nothing yet — reserved</td></tr>
+      <tr><td class="mono">touch-min</td><td class="mono">48×48px</td><td>Every interactive element. No exceptions.</td></tr>
+      <tr><td class="mono">shadow</td><td class="mono">0 1px 3px rgba(26,31,58,.08)</td><td>Sticky bar only. Elsewhere use a border.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Borders over shadows almost everywhere. Shadows cost paint time, render inconsistently on low-end Android, and this design gets its structure from rules, not depth.</p>
+</section>
+
+<!-- ============ SCREENS ============ -->
+<section>
+  <span class="sec-label">Screens</span>
+  <h2>All six, at 360px</h2>
+  <p class="lede">These are rendered, not sketched — the colours, sizes and spacing below are the real values. Build against these directly.</p>
+
+  <div class="mk-grid">
+
+    <!-- S1 LANDING -->
+    <div class="device">
+      <span class="device-cap">S1 · Landing · DUS-301</span>
+      <div class="screen">
+        <div class="mk-banner"><b>Demo</b> · mock data, not connected to EPFO</div>
+        <div class="mk-hdr"><span class="mk-logo">Dus Saal</span><span class="mk-lang">हिं</span></div>
+        <div class="mk-body">
+          <h2 class="mk-h1" style="margin-top:4px">Changed jobs? Your PF years may not be counting.</h2>
+          <p class="mk-p">You need ten years of recognised service for a monthly pension. When a transfer quietly fails, those years stop adding up — and nothing tells you.</p>
+          <p class="mk-p">Takes about thirty seconds to check.</p>
+          <div style="margin-top:22px">
+            <button class="mk-btn">Check my service record</button>
+            <button class="mk-btn link">How this works</button>
+          </div>
+          <p class="mk-fine">This is a demonstration built with invented data. It does not connect to EPFO. Sign in with any UAN and any six digits.</p>
+        </div>
+      </div>
+      <p class="device-note">Mock credentials on the landing page itself. A reviewer who can't get past the login scores you on the login.</p>
+    </div>
+
+    <!-- S2 SIGN IN -->
+    <div class="device">
+      <span class="device-cap">S2 · Sign in + persona picker · DUS-301</span>
+      <div class="screen">
+        <div class="mk-banner"><b>Demo</b> · mock data, not connected to EPFO</div>
+        <div class="mk-hdr"><span class="mk-logo">Dus Saal</span><span class="mk-lang">हिं</span></div>
+        <div class="mk-body">
+          <h2 class="mk-h1">Sign in</h2>
+          <div class="mk-field">
+            <label class="mk-lbl">UAN</label>
+            <div class="mk-inp" style="font-family:'IBM Plex Mono',monospace">0000 0000 0001</div>
+            <p class="mk-hint">A demo number. Not a real UAN format.</p>
+          </div>
+          <div class="mk-field">
+            <label class="mk-lbl">Six-digit code</label>
+            <div class="mk-inp focus" style="font-family:'IBM Plex Mono',monospace;color:#666A7D">1 2 3 4 5 6</div>
+            <p class="mk-hint">Any six digits work. No code is sent and nothing is verified.</p>
+          </div>
+          <button class="mk-btn">Continue</button>
+          <div class="mk-div">Or try a scenario</div>
+          <div class="mk-persona sel"><span><span class="mk-pn">Priya</span><span class="mk-pd">Exit date never recorded</span></span><span class="mk-chev">›</span></div>
+          <div class="mk-persona"><span><span class="mk-pn">Rahul</span><span class="mk-pd">Name mismatch with Aadhaar</span></span><span class="mk-chev">›</span></div>
+          <div class="mk-persona"><span><span class="mk-pn">Anjali</span><span class="mk-pd">Everything in order</span></span><span class="mk-chev">›</span></div>
+        </div>
+      </div>
+      <p class="device-note">The picker is the most important element on this screen — a judge must reach all three states in under twenty seconds.</p>
+    </div>
+
+    <!-- S3 VERDICT -->
+    <div class="device">
+      <span class="device-cap">S3 · Verdict · DUS-201 · HERO</span>
+      <div class="screen">
+        <div class="mk-banner"><b>Demo</b> · mock data, not connected to EPFO</div>
+        <div class="mk-hdr"><span class="mk-logo">Dus Saal</span><span class="mk-lang">हिं</span></div>
+        <div class="mk-body tight">
+          <p class="mk-eyebrow">Your recognised service</p>
+          <p class="mk-big">4 years 2 months</p>
+          <p class="mk-sub">You need <b style="font-weight:700">10 years</b> for a monthly pension for life.</p>
+          <div class="mk-ledger">
+            <div class="mk-slots">
+              <div class="mk-slot on"></div><div class="mk-slot on"></div><div class="mk-slot on"></div>
+              <div class="mk-slot on"></div><div class="mk-slot part"></div>
+              <div class="mk-slot gap"></div><div class="mk-slot gap"></div>
+              <div class="mk-slot"></div><div class="mk-slot"></div><div class="mk-slot"></div>
+            </div>
+            <div class="mk-scale"><span>Year 1</span><span>Year 10</span></div>
+            <div class="mk-key">
+              <span><i style="background:#2E6B52"></i>Counting</span>
+              <span><i style="background:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(168,84,27,.5) 2px,rgba(168,84,27,.5) 5px);border:1px dashed #A8541B"></i>Not counting</span>
+              <span><i style="border:1px solid #DEDFDA"></i>Still ahead</span>
+            </div>
+          </div>
+          <div class="mk-compare">You've worked <b>6 years 4 months</b>. <b>2 years 2 months</b> of that isn't being counted.</div>
+        </div>
+        <div class="mk-sec">
+          <p class="mk-seclbl">Why</p>
+          <div class="mk-row"><span class="mk-ic ok">✓</span><span class="mk-rt"><span class="mk-rl">Aadhaar is linked</span></span></div>
+          <div class="mk-row"><span class="mk-ic ok">✓</span><span class="mk-rt"><span class="mk-rl">Your name and date of birth match</span></span></div>
+          <div class="mk-row"><span class="mk-ic no">!</span><span class="mk-rt"><span class="mk-rl">Fynd hasn't recorded your last working day</span><span class="mk-rd">This is what stopped your transfer.</span><span class="mk-rs no">Needs fixing</span></span><span class="mk-chev">›</span></div>
+          <div class="mk-row"><span class="mk-ic ok">✓</span><span class="mk-rt"><span class="mk-rl">ZoomInfo has made a deposit</span></span></div>
+        </div>
+        <div class="mk-sticky"><button class="mk-btn">Fix this</button></div>
+      </div>
+      <p class="device-note">The service figure is the largest thing on screen. The balance is not shown here at all — that's deliberate, and it's the argument.</p>
+    </div>
+
+    <!-- S4 FIX -->
+    <div class="device">
+      <span class="device-cap">S4 · Fix: exit date · DUS-202</span>
+      <div class="screen">
+        <div class="mk-banner"><b>Demo</b> · mock data, not connected to EPFO</div>
+        <div class="mk-hdr"><span class="mk-logo">‹ Back</span><span class="mk-lang">हिं</span></div>
+        <div class="mk-body">
+          <h2 class="mk-h1">Fynd hasn't recorded your last working day</h2>
+          <div class="mk-flag"><p><b>You don't need them.</b> You can record it yourself — most people never find out this is possible.</p></div>
+          <div class="mk-block">
+            <p class="mk-bh">What to do</p>
+            <p class="mk-p sm" style="margin:0">Sign in to the EPFO member portal and mark your own date of exit. You can do this about two months after your last contribution there. Use your actual last working day — the one on your relieving letter.</p>
+          </div>
+          <div class="mk-block">
+            <p class="mk-bh">How long it takes</p>
+            <p class="mk-p sm" style="margin:0">The exit usually shows within a few days. Your transfer can go through after that.</p>
+          </div>
+          <div class="mk-block">
+            <p class="mk-bh">If that doesn't work</p>
+            <p class="mk-p sm" style="margin:0">Email your old employer with your relieving letter attached. If they still don't act, raise a grievance with EPFO at epfigms.gov.in.</p>
+          </div>
+          <button class="mk-btn">See my job history</button>
+          <p class="mk-fine">EPFO calls this your Date of Exit. Useful to know if you search for it later.</p>
+        </div>
+      </div>
+      <p class="device-note">Three blocks, same order, every fix page: what to do, how long, what if it fails. Jargon appears once, at the bottom, as a translation.</p>
+    </div>
+
+    <!-- S5 TIMELINE -->
+    <div class="device">
+      <span class="device-cap">S5 · Job history · DUS-302</span>
+      <div class="screen">
+        <div class="mk-banner"><b>Demo</b> · mock data, not connected to EPFO</div>
+        <div class="mk-hdr"><span class="mk-logo">‹ Back</span><span class="mk-lang">हिं</span></div>
+        <div class="mk-body">
+          <h2 class="mk-h1">Your job history</h2>
+          <p class="mk-p sm">Money and years are tracked separately. They don't always agree.</p>
+          <div class="mk-job">
+            <div class="mk-jt"><span class="mk-jn">Kavach Systems</span><span class="mk-jd">2019–2021</span></div>
+            <span class="mk-pd">2 years 1 month</span>
+            <div class="mk-pills"><span class="mk-pill ok">✓ Money moved</span><span class="mk-pill ok">✓ Years counting</span></div>
+          </div>
+          <div class="mk-job" style="border-color:#A8541B">
+            <div class="mk-jt"><span class="mk-jn">Fynd Technologies</span><span class="mk-jd">2021–2023</span></div>
+            <span class="mk-pd">2 years 2 months</span>
+            <div class="mk-pills"><span class="mk-pill no">! ₹1,84,320 still here</span><span class="mk-pill no">! Years not counting</span></div>
+          </div>
+          <div class="mk-job">
+            <div class="mk-jt"><span class="mk-jn">ZoomInfo</span><span class="mk-jd">2023–now</span></div>
+            <span class="mk-pd">2 years 1 month · current</span>
+            <div class="mk-pills"><span class="mk-pill ok">✓ Receiving deposits</span><span class="mk-pill ok">✓ Years counting</span></div>
+          </div>
+          <button class="mk-btn ghost">Show technical details</button>
+        </div>
+      </div>
+      <p class="device-note">On Rahul, one row shows money moved but years not counting. That single contradiction is the most persuasive thing in the app.</p>
+    </div>
+
+    <!-- S6 TRACKER -->
+    <div class="device">
+      <span class="device-cap">S6 · Tracker · DUS-303</span>
+      <div class="screen">
+        <div class="mk-banner"><b>Demo</b> · mock data, not connected to EPFO</div>
+        <div class="mk-hdr"><span class="mk-logo">‹ Back</span><span class="mk-lang">हिं</span></div>
+        <div class="mk-body">
+          <h2 class="mk-h1">Where your request is</h2>
+          <div class="mk-step"><span class="mk-dot done"></span><span><span class="mk-st">You sent the request</span><span class="mk-sd">14 August</span></span></div>
+          <div class="mk-step"><span class="mk-dot now"></span><span><span class="mk-st">Waiting on Fynd</span><span class="mk-sd">Usually 7–15 days. It's been 12.</span></span></div>
+          <div class="mk-step"><span class="mk-dot"></span><span><span class="mk-st">With the EPFO office</span><span class="mk-sd">Usually about a week after that.</span></span></div>
+          <div class="mk-step"><span class="mk-dot"></span><span><span class="mk-st">Done — your years start counting</span><span class="mk-sd">You'll see it on your verdict screen.</span></span></div>
+          <div class="mk-sms"><span class="mk-smslbl">Example message — mock only</span>Dus Saal: your PF request has moved to the EPFO office. Nothing needed from you. Reply STOP to opt out.</div>
+          <p class="mk-fine">Stuck past 15 days? Raise a grievance at epfigms.gov.in — we'll show you what to write.</p>
+        </div>
+      </div>
+      <p class="device-note">No EPFO status codes anywhere. The SMS mock is how you show you designed for people without smartphones.</p>
+    </div>
+
+  </div>
+
+  <h3>Verdict at 1024px</h3>
+  <div class="device" style="max-width:none">
+    <span class="device-cap">S3 · Desktop · two-column above 768px</span>
+    <div class="screen wide">
+      <div class="mk-banner"><b>Demo</b> · mock data, not connected to any EPFO system</div>
+      <div class="mk-hdr" style="padding:14px 30px"><span class="mk-logo">Dus Saal</span><span class="mk-lang">हिं / EN</span></div>
+      <div class="mk-two">
+        <div>
+          <p class="mk-eyebrow">Your recognised service</p>
+          <p class="mk-big" style="font-size:56px">4 years 2 months</p>
+          <p class="mk-sub" style="font-size:18px">You need <b style="font-weight:700">10 years</b> for a monthly pension for life.</p>
+          <div class="mk-ledger">
+            <div class="mk-slots" style="gap:5px">
+              <div class="mk-slot on" style="height:60px"></div><div class="mk-slot on" style="height:60px"></div>
+              <div class="mk-slot on" style="height:60px"></div><div class="mk-slot on" style="height:60px"></div>
+              <div class="mk-slot part" style="height:60px"></div>
+              <div class="mk-slot gap" style="height:60px"></div><div class="mk-slot gap" style="height:60px"></div>
+              <div class="mk-slot" style="height:60px"></div><div class="mk-slot" style="height:60px"></div><div class="mk-slot" style="height:60px"></div>
+            </div>
+            <div class="mk-scale"><span>Year 1</span><span>Year 10</span></div>
+            <div class="mk-key">
+              <span><i style="background:#2E6B52"></i>Counting</span>
+              <span><i style="background:repeating-linear-gradient(45deg,transparent,transparent 2px,rgba(168,84,27,.5) 2px,rgba(168,84,27,.5) 5px);border:1px dashed #A8541B"></i>Not counting</span>
+              <span><i style="border:1px solid #DEDFDA"></i>Still ahead</span>
+            </div>
+          </div>
+          <div class="mk-compare">You've worked <b>6 years 4 months</b>. <b>2 years 2 months</b> of that isn't being counted.</div>
+        </div>
+        <div>
+          <p class="mk-seclbl">Why</p>
+          <div class="mk-row"><span class="mk-ic ok">✓</span><span class="mk-rt"><span class="mk-rl">Aadhaar is linked</span></span></div>
+          <div class="mk-row"><span class="mk-ic ok">✓</span><span class="mk-rt"><span class="mk-rl">Your name and date of birth match</span></span></div>
+          <div class="mk-row"><span class="mk-ic no">!</span><span class="mk-rt"><span class="mk-rl">Fynd hasn't recorded your last working day</span><span class="mk-rd">This is what stopped your transfer.</span><span class="mk-rs no">Needs fixing</span></span><span class="mk-chev">›</span></div>
+          <div class="mk-row"><span class="mk-ic ok">✓</span><span class="mk-rt"><span class="mk-rl">ZoomInfo has made a deposit</span></span></div>
+          <div style="margin-top:22px;max-width:300px"><button class="mk-btn">Fix this</button></div>
+        </div>
+      </div>
+    </div>
+    <p class="device-note">The only structural change above 768px: verdict and conditions sit side by side, and the action stops being sticky. Nothing is added — desktop is not a bigger product, just a wider one.</p>
+  </div>
+</section>
+
+<!-- ============ RESPONSIVE ============ -->
+<section>
+  <span class="sec-label">Responsive</span>
+  <h2>One column until it genuinely helps</h2>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Width</th><th>Layout</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">320–359</td><td>Single column, 16px gutter</td><td>Must not break. Ledger slots drop to 2px gaps and 40px height.</td></tr>
+      <tr><td class="mono">360–479</td><td>Single column, 18px gutter</td><td><strong>Primary target.</strong> Design and test here first, always.</td></tr>
+      <tr><td class="mono">480–767</td><td>Single column, 24px gutter, max 480</td><td>Content stops widening. Type does not scale up.</td></tr>
+      <tr><td class="mono">768–1023</td><td>Verdict goes two-column. Others centre at 620px.</td><td>Sticky action bar becomes inline.</td></tr>
+      <tr><td class="mono">1024+</td><td>Max width 1000px, centred</td><td>Verdict figure 44 → 56px. No other change.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <ul>
+    <li>Test at 360px in a real throttled browser before every merge. Not at 375, not at 390.</li>
+    <li>No horizontal scroll at any width, on any route, ever. This is an acceptance criterion on DUS-501.</li>
+    <li>The sticky action bar must not cover content — pad the scroll container by its height.</li>
+    <li>Touch targets stay 48px at every breakpoint, including desktop.</li>
+  </ul>
+</section>
+
+<!-- ============ A11Y + MOTION ============ -->
+<section>
+  <span class="sec-label">Accessibility &amp; motion</span>
+  <h2>The floor, not the ceiling</h2>
+  <ul>
+    <li><strong>Focus:</strong> 3px indigo ring at 2px offset. Never <code>outline:none</code> without a replacement — this is a PR-blocking review comment.</li>
+    <li><strong>Status:</strong> icon + word + colour, always all three. A colourblind reviewer must reach the same conclusion.</li>
+    <li><strong>The ledger bar needs a text equivalent</strong> for screen readers: "4 years 2 months counting, 2 years 2 months not counting, 10 years needed." Put it in an <code>aria-label</code> — the bar is decorative without it.</li>
+    <li><strong>Semantics:</strong> <code>&lt;button&gt;</code> for actions, <code>&lt;a&gt;</code> for navigation, labels tied to inputs, one <code>h1</code> per screen.</li>
+    <li><strong>Contrast:</strong> 4.5:1 body, 3:1 for text above 24px. Already satisfied by the palette — don't introduce colours that aren't.</li>
+    <li><strong>Language:</strong> set <code>lang</code> on <code>&lt;html&gt;</code> and flip it with the toggle, so screen readers pronounce Hindi correctly.</li>
+  </ul>
+
+  <h3>Motion — one animation in the whole app</h3>
+  <p>The ledger bar fills left to right on mount. 600ms, <code>cubic-bezier(.22,.61,.36,1)</code>, 40ms stagger per slot, once per session. That's it.</p>
+  <p>No page transitions, no skeleton shimmer, no scroll reveals, no hover flourishes. Under <code>prefers-reduced-motion: reduce</code> the bar renders filled instantly. Restraint here is what makes the one animation land — and it keeps the app fast on the phones this is built for.</p>
+</section>
+
+<!-- ============ TOKENS ============ -->
+<section>
+  <span class="sec-label">Implementation</span>
+  <h2>Tailwind config — paste this into DUS-104</h2>
+  <pre class="code"><span class="c">// tailwind.config.js — the single source of truth.</span>
+<span class="c">// If a component contains a raw hex value, that is a review comment.</span>
+<span class="k">export default</span> {
+  theme: {
+    extend: {
+      colors: {
+        ink:      { DEFAULT: <span class="s">'#1A1F3A'</span>, 2: <span class="s">'#4A4F66'</span>, 3: <span class="s">'#666A7D'</span> },
+        indigo:   { DEFAULT: <span class="s">'#2E3A8C'</span>, dark: <span class="s">'#232C6B'</span> },
+        counted:  { DEFAULT: <span class="s">'#2E6B52'</span>, bg: <span class="s">'#E8F0EB'</span> },
+        uncounted:{ DEFAULT: <span class="s">'#A8541B'</span>, bg: <span class="s">'#FBEFE4'</span> },
+        alert:    <span class="s">'#9E2B20'</span>,
+        paper:    <span class="s">'#F5F6F4'</span>,
+        card:     <span class="s">'#FFFFFF'</span>,
+        rule:     { DEFAULT: <span class="s">'#DEDFDA'</span>, 2: <span class="s">'#EBECE8'</span> },
+        banner:   <span class="s">'#2A2F4A'</span>,
+      },
+      fontFamily: {
+        sans: [<span class="s">'Anek Latin'</span>, <span class="s">'Anek Devanagari'</span>, <span class="s">'system-ui'</span>, <span class="s">'sans-serif'</span>],
+        mono: [<span class="s">'IBM Plex Mono'</span>, <span class="s">'ui-monospace'</span>, <span class="s">'monospace'</span>],
+      },
+      fontSize: {
+        <span class="c">// [size, { lineHeight, letterSpacing, fontWeight }]</span>
+        <span class="s">'display-xl'</span>: [<span class="s">'44px'</span>, { lineHeight: <span class="s">'1'</span>,    letterSpacing: <span class="s">'-0.025em'</span>, fontWeight: <span class="s">'800'</span> }],
+        <span class="s">'display-l'</span>:  [<span class="s">'27px'</span>, { lineHeight: <span class="s">'1.16'</span>, letterSpacing: <span class="s">'-0.01em'</span>,  fontWeight: <span class="s">'700'</span> }],
+        <span class="s">'title'</span>:      [<span class="s">'20px'</span>, { lineHeight: <span class="s">'1.3'</span>,  fontWeight: <span class="s">'600'</span> }],
+        <span class="s">'body-l'</span>:     [<span class="s">'18px'</span>, { lineHeight: <span class="s">'1.5'</span> }],
+        <span class="s">'body'</span>:       [<span class="s">'17px'</span>, { lineHeight: <span class="s">'1.55'</span> }],   <span class="c">// base</span>
+        <span class="s">'body-s'</span>:     [<span class="s">'15px'</span>, { lineHeight: <span class="s">'1.5'</span> }],
+        <span class="s">'label'</span>:      [<span class="s">'14px'</span>, { lineHeight: <span class="s">'1.4'</span>,  letterSpacing: <span class="s">'0.07em'</span>, fontWeight: <span class="s">'600'</span> }],
+        <span class="s">'caption'</span>:    [<span class="s">'14px'</span>, { lineHeight: <span class="s">'1.5'</span> }],    <span class="c">// floor — nothing smaller</span>
+      },
+      borderRadius: { sm: <span class="s">'2px'</span>, DEFAULT: <span class="s">'6px'</span>, lg: <span class="s">'14px'</span> },
+      minHeight:    { touch: <span class="s">'48px'</span> },
+      minWidth:     { touch: <span class="s">'48px'</span> },
+      boxShadow:    { sticky: <span class="s">'0 1px 3px rgba(26,31,58,.08)'</span> },
+      screens:      { xs: <span class="s">'360px'</span>, sm: <span class="s">'480px'</span>, md: <span class="s">'768px'</span>, lg: <span class="s">'1024px'</span> },
+    },
+  },
+};</pre>
+</section>
+
+<!-- ============ DO/DONT ============ -->
+<section>
+  <span class="sec-label">Review checklist</span>
+  <h2>Reject a PR that does any of these</h2>
+  <div class="tbl-scroll">
+  <table>
+    <thead><tr><th>Don't</th><th>Do</th></tr></thead>
+    <tbody>
+      <tr><td>Show the balance on the verdict screen</td><td>Show recognised service. The balance lives on the timeline.</td></tr>
+      <tr><td>Use red for years that aren't counting</td><td>Ochre. Missing, not dangerous.</td></tr>
+      <tr><td>Two equally weighted buttons on a screen</td><td>One primary. Everything else is a text link.</td></tr>
+      <tr><td>"Date of Exit not updated"</td><td>"Fynd hasn't recorded your last working day"</td></tr>
+      <tr><td>Raw hex in a component</td><td>A named token from the config above.</td></tr>
+      <tr><td>Text below 14px anywhere</td><td>14px floor, disclaimers included.</td></tr>
+      <tr><td>Member ID as a primary label</td><td>Employer name. ID goes behind a disclosure.</td></tr>
+      <tr><td><code>outline:none</code></td><td>A visible 3px indigo focus ring.</td></tr>
+      <tr><td>Status conveyed by colour alone</td><td>Icon, word and colour together.</td></tr>
+      <tr><td>A second animation</td><td>The ledger fill is the only one. Cut the rest.</td></tr>
+      <tr><td>Tricolour, emblems, or govt-style chrome</td><td>Our own identity. The rules require it.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<p class="footer-note">
+  DUS SAAL — DESIGN SYSTEM v1 · prepared 26 Aug 2026<br>
+  Companion to the build plan. Implemented in ticket DUS-104, enforced in DUS-501.<br>
+  Contrast ratios measured against WCAG 2.1. All screens shown use invented data.<br>
+  Not affiliated with, endorsed by, or connected to EPFO or any government body.
+</p>
+
+</div>
+</body>
+</html>
