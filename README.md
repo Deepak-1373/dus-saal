@@ -2,7 +2,7 @@
 
 **Check whether your PF years actually count toward a pension.**
 
-> ### ▶ Live demo: Will be available soon
+> ### ▶ Live demo: https://dus-saal.vercel.app/
 >
 > No signup. Any UAN, any six digits as the code. A scenario picker on the sign-in screen lets you try all three cases in under twenty seconds.
 
