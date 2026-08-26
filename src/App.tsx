@@ -26,6 +26,8 @@ export default function App() {
         {ROUTES.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
+        {/* DUS-202 fills this in; the verdict's rows already route here. */}
+        <Route path="/fix/:checkId" element={<Fix />} />
       </Routes>
 
       {/* Scaffold route index. DUS-301 replaces this with the real landing screen. */}
