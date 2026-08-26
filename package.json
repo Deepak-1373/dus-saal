@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "react": "19.2.8",
@@ -22,6 +24,7 @@
     "postcss": "8.5.26",
     "tailwindcss": "3.4.19",
     "typescript": "5.9.3",
-    "vite": "7.3.6"
+    "vite": "7.3.6",
+    "vitest": "^4.1.11"
   }
 }
