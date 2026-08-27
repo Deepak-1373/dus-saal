@@ -48,3 +48,29 @@ describe('formatMonths', () => {
     expect(formatMonths(0)).toBe('0 months');
   });
 });
+
+describe('formatMonths in Hindi', () => {
+  test('renders years and months in Devanagari words', () => {
+    expect(formatMonths(50, 'hi')).toBe('4 साल 2 महीने');
+  });
+
+  test('uses the singular month form for one month', () => {
+    expect(formatMonths(25, 'hi')).toBe('2 साल 1 महीना');
+  });
+
+  test('omits the month part on a whole number of years', () => {
+    expect(formatMonths(24, 'hi')).toBe('2 साल');
+  });
+
+  test('omits the year part below twelve months', () => {
+    expect(formatMonths(10, 'hi')).toBe('10 महीने');
+  });
+
+  test('renders zero', () => {
+    expect(formatMonths(0, 'hi')).toBe('0 महीने');
+  });
+
+  test('still defaults to English when no language is given', () => {
+    expect(formatMonths(50)).toBe('4 years 2 months');
+  });
+});

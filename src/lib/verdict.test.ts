@@ -22,7 +22,7 @@ describe('resolvePersona', () => {
 describe('primaryAction', () => {
   test('sends someone with a failed condition to that condition’s fix page', () => {
     expect(primaryAction(verdictFor('priya'))).toEqual({
-      label: 'Fix this',
+      labelKey: 'verdictFix',
       to: '/fix/exit_date',
     });
   });
@@ -33,7 +33,7 @@ describe('primaryAction', () => {
 
   test('offers an all-clear persona the timeline instead of a fix', () => {
     expect(primaryAction(verdictFor('anjali'))).toEqual({
-      label: 'See how your years add up',
+      labelKey: 'verdictAllClear',
       to: '/timeline',
     });
   });
@@ -41,7 +41,7 @@ describe('primaryAction', () => {
   test('gives exactly one action, never a list', () => {
     const action = primaryAction(verdictFor('priya'));
 
-    expect(Object.keys(action).sort()).toEqual(['label', 'to']);
+    expect(Object.keys(action).sort()).toEqual(['labelKey', 'to']);
   });
 });
 
@@ -51,7 +51,7 @@ describe('every persona', () => {
       const action = primaryAction(computeVerdict(persona, DEMO_AS_OF));
 
       expect(action.to.startsWith('/')).toBe(true);
-      expect(action.label.length).toBeGreaterThan(0);
+      expect(action.labelKey.length).toBeGreaterThan(0);
     }
   });
 });

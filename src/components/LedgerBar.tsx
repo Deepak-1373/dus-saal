@@ -1,3 +1,5 @@
+import { useLanguage } from '../i18n/LanguageProvider';
+import type { StringKey } from '../i18n/strings';
 import { ledgerSlots, ledgerSummary, type LedgerInput, type LedgerSlot } from '../lib/ledger';
 
 const SLOT_CLASSES = {
@@ -7,10 +9,10 @@ const SLOT_CLASSES = {
   remaining: 'border-rule',
 } as const;
 
-const KEY_ITEMS = [
-  { label: 'Counting', swatch: 'bg-counted border-counted' },
-  { label: 'Not counting', swatch: 'border-dashed border-uncounted ledger-hatch' },
-  { label: 'Still ahead', swatch: 'border-rule' },
+const KEY_ITEMS: { label: StringKey; swatch: string }[] = [
+  { label: 'ledgerCounting', swatch: 'bg-counted border-counted' },
+  { label: 'ledgerNotCounting', swatch: 'border-dashed border-uncounted ledger-hatch' },
+  { label: 'ledgerAhead', swatch: 'border-rule' },
 ];
 
 function Slot({ slot, index }: { slot: LedgerSlot; index: number }) {
@@ -29,6 +31,7 @@ function Slot({ slot, index }: { slot: LedgerSlot; index: number }) {
 }
 
 export default function LedgerBar({ recognisedMonths, gapMonths, targetMonths }: LedgerInput) {
+  const { t } = useLanguage();
   const input = { recognisedMonths, gapMonths, targetMonths };
   const slots = ledgerSlots(input);
 
@@ -49,7 +52,7 @@ export default function LedgerBar({ recognisedMonths, gapMonths, targetMonths }:
         {KEY_ITEMS.map((item) => (
           <li key={item.label} className="flex items-center gap-2">
             <span className={`h-3 w-3 shrink-0 rounded-sm border-hair ${item.swatch}`} />
-            {item.label}
+            {t(item.label)}
           </li>
         ))}
       </ul>
