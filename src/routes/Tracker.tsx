@@ -2,6 +2,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Button from '../components/Button';
 import StickyActionBar from '../components/StickyActionBar';
 import { GRIEVANCE_HOST, SMS_MOCK, STALL_THRESHOLD_DAYS } from '../data/claim';
+import { useLanguage } from '../i18n/LanguageProvider';
 import { withPersona } from '../lib/fix';
 import { DEMO_AS_OF } from '../lib/service';
 import { claimProgress, type StageState } from '../lib/tracker';
@@ -16,6 +17,7 @@ const DOT_CLASSES: Record<StageState, string> = {
 export default function Tracker() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const personaId = params.get('persona');
   const persona = resolvePersona(personaId);
   const progress = claimProgress(persona, DEMO_AS_OF);
@@ -23,14 +25,14 @@ export default function Tracker() {
   if (!progress.hasClaim) {
     return (
       <div>
-        <h1 className="mb-3 text-display-l text-ink">Nothing is in progress</h1>
+        <h1 className="mb-3 text-display-l text-ink">{t('trackerNothing')}</h1>
         <p className="mb-4 text-body text-ink-2">
           All four conditions are already in order, so there is no request to follow. If that ever
           changes, this is where you would watch it.
         </p>
         <StickyActionBar>
           <Button onClick={() => navigate(withPersona('/verdict', personaId))}>
-            Back to your verdict
+            {t('fixBackToVerdict')}
           </Button>
         </StickyActionBar>
       </div>
@@ -39,7 +41,7 @@ export default function Tracker() {
 
   return (
     <div>
-      <h1 className="mb-4 text-display-l text-ink">Where your request is</h1>
+      <h1 className="mb-4 text-display-l text-ink">{t('trackerTitle')}</h1>
 
       <ol>
         {progress.stages.map((stage) => (
@@ -80,7 +82,7 @@ export default function Tracker() {
       </p>
 
       <StickyActionBar>
-        <Button onClick={() => navigate(withPersona('/verdict', personaId))}>Back to your verdict</Button>
+        <Button onClick={() => navigate(withPersona('/verdict', personaId))}>{t('fixBackToVerdict')}</Button>
       </StickyActionBar>
     </div>
   );

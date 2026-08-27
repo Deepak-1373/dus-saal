@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react';
+import { useLanguage } from '../i18n/LanguageProvider';
+import type { StringKey } from '../i18n/strings';
 import type { CheckStatus } from '../types';
 
 const PRESENTATION = {
-  pass: { glyph: '✓', word: 'In order', iconClass: 'bg-counted', wordClass: 'text-counted' },
-  fail: { glyph: '!', word: 'Needs fixing', iconClass: 'bg-uncounted', wordClass: 'text-uncounted' },
-  not_applicable: { glyph: '–', word: 'Not needed', iconClass: 'bg-ink-3', wordClass: 'text-ink-3' },
+  pass: { glyph: '✓', word: 'statusPass' as StringKey, iconClass: 'bg-counted', wordClass: 'text-counted' },
+  fail: { glyph: '!', word: 'statusFail' as StringKey, iconClass: 'bg-uncounted', wordClass: 'text-uncounted' },
+  not_applicable: { glyph: '–', word: 'statusNotApplicable' as StringKey, iconClass: 'bg-ink-3', wordClass: 'text-ink-3' },
 } as const satisfies Record<CheckStatus, unknown>;
 
 interface StatusRowProps {
@@ -17,6 +19,7 @@ interface StatusRowProps {
 }
 
 export default function StatusRow({ status, label, detail, statusWord, onClick, children }: StatusRowProps) {
+  const { t } = useLanguage();
   const { glyph, word, iconClass, wordClass } = PRESENTATION[status];
   const body = (
     <>
@@ -30,7 +33,7 @@ export default function StatusRow({ status, label, detail, statusWord, onClick, 
         <span className="block text-body font-semibold text-ink">{label}</span>
         {detail ? <span className="mt-1 block text-caption text-ink-2">{detail}</span> : null}
         {/* Status is never colour alone: the word ships alongside the icon and hue. */}
-        <span className={`mt-1 block text-label uppercase ${wordClass}`}>{statusWord ?? word}</span>
+        <span className={`mt-1 block text-label uppercase ${wordClass}`}>{statusWord ?? t(word)}</span>
         {children}
       </span>
       {onClick ? (

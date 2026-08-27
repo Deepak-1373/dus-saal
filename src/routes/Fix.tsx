@@ -2,6 +2,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Button from '../components/Button';
 import StickyActionBar from '../components/StickyActionBar';
 import TextLink from '../components/TextLink';
+import { useLanguage } from '../i18n/LanguageProvider';
 import { FIX_GUIDES } from '../data/fixes';
 import { fixTitle, withPersona } from '../lib/fix';
 import { resolvePersona } from '../lib/verdict';
@@ -24,6 +25,7 @@ export default function Fix() {
   const { checkId } = useParams();
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const { lang, t } = useLanguage();
   const personaId = params.get('persona');
   const persona = resolvePersona(personaId);
 
@@ -45,12 +47,12 @@ export default function Fix() {
   if (check && check.status !== 'fail') {
     return (
       <div>
-        <p className="mb-2 text-label uppercase text-counted">Already in order</p>
-        <h1 className="mb-3 text-display-l text-ink">{check.label}</h1>
-        <p className="mb-4 text-body text-ink-2">{check.detail}</p>
+        <p className="mb-2 text-label uppercase text-counted">{t('fixAlreadyInOrder')}</p>
+        <h1 className="mb-3 text-display-l text-ink">{lang === 'hi' ? check.labelHi : check.label}</h1>
+        <p className="mb-4 text-body text-ink-2">{lang === 'hi' ? check.detailHi : check.detail}</p>
         <p className="mb-6 text-caption text-ink-3">{guide.jargon}</p>
         <StickyActionBar>
-          <Button onClick={() => navigate(withPersona('/verdict', personaId))}>Back to your verdict</Button>
+          <Button onClick={() => navigate(withPersona('/verdict', personaId))}>{t('fixBackToVerdict')}</Button>
         </StickyActionBar>
       </div>
     );
@@ -64,14 +66,18 @@ export default function Fix() {
         {guide.flag}
       </p>
 
-      <Block heading="What to do">{guide.whatToDo}</Block>
-      <Block heading="How long it takes">{guide.howLong}</Block>
-      <Block heading="If that doesn't work">{guide.ifItDoesNotWork}</Block>
+      {lang === 'hi' ? (
+        <p lang="en" className="mb-3 text-caption text-ink-3">{t('englishOnly')}</p>
+      ) : null}
+
+      <Block heading={t('fixWhatToDo')}>{guide.whatToDo}</Block>
+      <Block heading={t('fixHowLong')}>{guide.howLong}</Block>
+      <Block heading={t('fixIfNotWork')}>{guide.ifItDoesNotWork}</Block>
 
       <p className="mt-3 text-caption text-ink-3">{guide.jargon}</p>
 
       <StickyActionBar>
-        <Button onClick={() => navigate(withPersona('/timeline', personaId))}>See my job history</Button>
+        <Button onClick={() => navigate(withPersona('/timeline', personaId))}>{t('fixSeeHistory')}</Button>
       </StickyActionBar>
     </div>
   );

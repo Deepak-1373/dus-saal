@@ -1,8 +1,9 @@
 import { DEFAULT_PERSONA_ID, PERSONAS } from '../data/personas';
+import type { StringKey } from '../i18n/strings';
 import type { Persona, ServiceVerdict } from '../types';
 
 export interface PrimaryAction {
-  label: string;
+  labelKey: StringKey;
   to: string;
 }
 
@@ -17,7 +18,7 @@ export function resolvePersona(id: string | null): Persona {
 
 export function primaryAction(verdict: ServiceVerdict): PrimaryAction {
   const [firstFailure] = verdict.failedChecks;
-  if (!firstFailure) return { label: 'See how your years add up', to: '/timeline' };
+  if (!firstFailure) return { labelKey: 'verdictAllClear', to: '/timeline' };
 
-  return { label: 'Fix this', to: `/fix/${firstFailure.id}` };
+  return { labelKey: 'verdictFix', to: `/fix/${firstFailure.id}` };
 }
